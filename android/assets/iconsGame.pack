@@ -1,0 +1,348 @@
+
+iconsGame.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+airplane
+  rotate: false
+  xy: 1, 853
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+bag
+  rotate: false
+  xy: 1, 711
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+bomb
+  rotate: false
+  xy: 143, 853
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+bug
+  rotate: false
+  xy: 1, 569
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+camera
+  rotate: false
+  xy: 143, 711
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+chain
+  rotate: false
+  xy: 285, 853
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+clip
+  rotate: false
+  xy: 1, 427
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+cloud
+  rotate: false
+  xy: 143, 569
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+cubes
+  rotate: false
+  xy: 285, 711
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+cup
+  rotate: false
+  xy: 427, 853
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+doc
+  rotate: false
+  xy: 1, 285
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+fire
+  rotate: false
+  xy: 143, 427
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+fire_extinguisher
+  rotate: false
+  xy: 285, 569
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+flag
+  rotate: false
+  xy: 427, 711
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+folder
+  rotate: false
+  xy: 569, 853
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+gift
+  rotate: false
+  xy: 1, 143
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+group
+  rotate: false
+  xy: 143, 285
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+hat
+  rotate: false
+  xy: 285, 427
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+headphones
+  rotate: false
+  xy: 427, 569
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+heart
+  rotate: false
+  xy: 569, 711
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+key
+  rotate: false
+  xy: 711, 853
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+leaf
+  rotate: false
+  xy: 1, 1
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+leaf2
+  rotate: false
+  xy: 143, 143
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+lifebuoy
+  rotate: false
+  xy: 285, 285
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+lightbulb
+  rotate: false
+  xy: 427, 427
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+lightning
+  rotate: false
+  xy: 569, 569
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+magnet
+  rotate: false
+  xy: 711, 711
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+magnifier
+  rotate: false
+  xy: 853, 853
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+monument
+  rotate: false
+  xy: 143, 1
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+note
+  rotate: false
+  xy: 285, 143
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+noutbook
+  rotate: false
+  xy: 427, 285
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+phone
+  rotate: false
+  xy: 569, 427
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+plane
+  rotate: false
+  xy: 711, 569
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+rocket
+  rotate: false
+  xy: 853, 711
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+round
+  rotate: false
+  xy: 285, 1
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+s
+  rotate: false
+  xy: 427, 143
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+save
+  rotate: false
+  xy: 569, 285
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+scissors
+  rotate: false
+  xy: 711, 427
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+shuttle
+  rotate: false
+  xy: 853, 569
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+sight
+  rotate: false
+  xy: 427, 1
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+speedometer
+  rotate: false
+  xy: 569, 143
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+star
+  rotate: false
+  xy: 711, 285
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+target
+  rotate: false
+  xy: 853, 427
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+trail
+  rotate: false
+  xy: 569, 1
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+tree
+  rotate: false
+  xy: 711, 143
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+truck
+  rotate: false
+  xy: 853, 285
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+unlock
+  rotate: false
+  xy: 711, 1
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+wand
+  rotate: false
+  xy: 853, 143
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+write
+  rotate: false
+  xy: 853, 1
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1

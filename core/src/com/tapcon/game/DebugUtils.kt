@@ -4,7 +4,7 @@ import com.badlogic.gdx.assets.AssetManager
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.utils.Timer
 import com.run.cookie.run.game.data.Assets
-import com.run.cookie.run.game.data.Descriptors
+import com.tapcon.game.data.Descriptors
 
 object DebugUtils {
     fun drawVerticalLine(batch: Batch?, manager: AssetManager, x: Float) {

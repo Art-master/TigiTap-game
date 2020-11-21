@@ -1,4 +1,4 @@
-package com.run.cookie.run.game.managers
+package com.tapcon.game.managers
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.assets.AssetDescriptor
@@ -7,10 +7,11 @@ import com.badlogic.gdx.assets.loaders.FileHandleResolver
 import com.badlogic.gdx.assets.loaders.MusicLoader
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver
 import com.badlogic.gdx.audio.Music
-import com.run.cookie.run.game.Prefs
 import com.badlogic.gdx.audio.Sound
 import com.badlogic.gdx.utils.Array
 import com.run.cookie.run.game.Config
+import com.run.cookie.run.game.Prefs
+import com.run.cookie.run.game.managers.ScreenManager
 
 object AudioManager {
 
@@ -19,13 +20,13 @@ object AudioManager {
     enum class SoundApp(val descriptor: AssetDescriptor<Sound>, val volume: Float = 1f) : Audio {
         CLICK_SOUND(AssetDescriptor("${Config.SOUNDS_FOLDER}/click.mp3", Sound::class.java), 0.3f),
         CRUNCH(AssetDescriptor("${Config.SOUNDS_FOLDER}/crunch.mp3", Sound::class.java), 0.3f),
-        JUMP_ON_BOX( AssetDescriptor("${Config.SOUNDS_FOLDER}/jump_on_box.wav", Sound::class.java)),
+        JUMP_ON_BOX(AssetDescriptor("${Config.SOUNDS_FOLDER}/jump_on_box.wav", Sound::class.java)),
         JUMP(AssetDescriptor("${Config.SOUNDS_FOLDER}/jump.wav", Sound::class.java)),
-        SCORE(AssetDescriptor("${Config.SOUNDS_FOLDER}/score.wav", Sound::class.java),0.3f)
+        SCORE(AssetDescriptor("${Config.SOUNDS_FOLDER}/score.wav", Sound::class.java), 0.3f)
     }
 
     enum class MusicApp(val descriptor: AssetDescriptor<Music>, val volume: Float = 1f) : Audio {
-        GAME_MUSIC(AssetDescriptor("${Config.SOUNDS_FOLDER}/gameMusic.mp3", Music::class.java),0.3f),
+        GAME_MUSIC(AssetDescriptor("${Config.SOUNDS_FOLDER}/gameMusic.mp3", Music::class.java), 0.3f),
         MAIN_MENU_MUSIC(AssetDescriptor("${Config.SOUNDS_FOLDER}/mainMenuMusic.mp3", Music::class.java)),
     }
 

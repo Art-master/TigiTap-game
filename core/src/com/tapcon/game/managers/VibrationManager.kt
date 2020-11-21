@@ -1,4 +1,4 @@
-package com.run.cookie.run.game.managers
+package com.tapcon.game.managers
 
 import com.badlogic.gdx.Gdx
 import com.run.cookie.run.game.Prefs

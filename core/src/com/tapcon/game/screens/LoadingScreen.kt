@@ -1,4 +1,4 @@
-package com.run.cookie.run.game.screens
+package com.tapcon.game.screens
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Screen
@@ -19,14 +19,14 @@ import com.badlogic.gdx.utils.Timer
 import com.badlogic.gdx.utils.viewport.ExtendViewport
 import com.run.cookie.run.game.Config
 import com.run.cookie.run.game.Prefs
-import com.run.cookie.run.game.actors.loading_progress.Background
-import com.run.cookie.run.game.actors.loading_progress.ProgressBar
+import com.tapcon.game.actors.loading_progress.Background
+import com.tapcon.game.actors.loading_progress.ProgressBar
 import com.run.cookie.run.game.data.Assets
-import com.run.cookie.run.game.data.Descriptors
-import com.run.cookie.run.game.managers.AudioManager
-import com.run.cookie.run.game.managers.ScreenManager
-import com.run.cookie.run.game.managers.ScreenManager.Param.*
-import com.run.cookie.run.game.managers.ScreenManager.Screens.MAIN_MENU_SCREEN
+import com.tapcon.game.data.Descriptors
+import com.tapcon.game.managers.AudioManager
+import com.tapcon.game.managers.ScreenManager
+import com.tapcon.game.managers.ScreenManager.Param.*
+import com.tapcon.game.managers.ScreenManager.Screens.MAIN_MENU_SCREEN
 import com.run.cookie.run.game.services.AdsController
 
 

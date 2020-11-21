@@ -1,0 +1,278 @@
+
+iconsGame2.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+arrowBack
+  rotate: false
+  xy: 1, 853
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+authorHelp
+  rotate: false
+  xy: 1, 711
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+cup
+  rotate: false
+  xy: 143, 853
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+dizlayk
+  rotate: false
+  xy: 1, 569
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+equally
+  rotate: false
+  xy: 143, 711
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+eye
+  rotate: false
+  xy: 285, 853
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+gamepad
+  rotate: false
+  xy: 1, 427
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+gears
+  rotate: false
+  xy: 143, 569
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+hand
+  rotate: false
+  xy: 285, 711
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+handsUp
+  rotate: false
+  xy: 427, 853
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+heart
+  rotate: false
+  xy: 1, 285
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+human
+  rotate: false
+  xy: 143, 427
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+lock
+  rotate: false
+  xy: 285, 569
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+menu
+  rotate: false
+  xy: 427, 711
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+off
+  rotate: false
+  xy: 569, 853
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+phone
+  rotate: false
+  xy: 1, 143
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+picture
+  rotate: false
+  xy: 143, 285
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+pictureBad
+  rotate: false
+  xy: 285, 427
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+play
+  rotate: false
+  xy: 427, 569
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+plus
+  rotate: false
+  xy: 569, 711
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+plus2
+  rotate: false
+  xy: 711, 853
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+question
+  rotate: false
+  xy: 1, 1
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+refresh
+  rotate: false
+  xy: 143, 143
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+reStruct
+  rotate: false
+  xy: 285, 285
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+rightArrow
+  rotate: false
+  xy: 427, 427
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+save
+  rotate: false
+  xy: 569, 569
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+shopping
+  rotate: false
+  xy: 711, 711
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+smile
+  rotate: false
+  xy: 853, 853
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+bracket
+  rotate: false
+  xy: 995, 853
+  size: 28, 140
+  orig: 28, 140
+  offset: 0, 0
+  index: -1
+smile_frown
+  rotate: false
+  xy: 143, 1
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+smile_sad
+  rotate: false
+  xy: 285, 143
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+sound
+  rotate: false
+  xy: 427, 285
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+stand
+  rotate: false
+  xy: 569, 427
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+think
+  rotate: false
+  xy: 711, 569
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+three
+  rotate: false
+  xy: 853, 711
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+two
+  rotate: false
+  xy: 285, 1
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+vibration
+  rotate: false
+  xy: 427, 143
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+woman
+  rotate: false
+  xy: 569, 285
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+x
+  rotate: false
+  xy: 711, 427
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
