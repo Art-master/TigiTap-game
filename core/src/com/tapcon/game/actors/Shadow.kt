@@ -5,9 +5,9 @@ import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.scenes.scene2d.Touchable
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
-import com.run.cookie.run.game.Config
-import com.run.cookie.run.game.Config.SHADOW_ANIMATION_TIME_S
-import com.run.cookie.run.game.data.Assets
+import com.tapcon.game.Config
+import com.tapcon.game.Config.SHADOW_ANIMATION_TIME_S
+import com.tapcon.game.data.Assets
 import com.tapcon.game.api.Animated
 import com.tapcon.game.api.AnimationType
 import com.tapcon.game.api.GameActor
@@ -33,10 +33,6 @@ class Shadow(val manager: AssetManager) : GameActor(), Animated {
         batch.color = color
         batch.draw(region, x, y, width, height)
         batch.setColor(color.r, color.g, color.b, 1f)
-    }
-
-    fun invertColor() {
-        region = manager.get(Descriptors.environment).findRegion(Assets.EnvironmentAtlas.WHITE)
     }
 
     override fun animate(type: AnimationType, runAfter: Runnable) {

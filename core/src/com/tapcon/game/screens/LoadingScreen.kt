@@ -17,17 +17,16 @@ import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.utils.Disposable
 import com.badlogic.gdx.utils.Timer
 import com.badlogic.gdx.utils.viewport.ExtendViewport
-import com.run.cookie.run.game.Config
 import com.run.cookie.run.game.Prefs
+import com.run.cookie.run.game.services.AdsController
+import com.tapcon.game.Config
 import com.tapcon.game.actors.loading_progress.Background
 import com.tapcon.game.actors.loading_progress.ProgressBar
-import com.run.cookie.run.game.data.Assets
+import com.tapcon.game.data.Assets
 import com.tapcon.game.data.Descriptors
-import com.tapcon.game.managers.AudioManager
 import com.tapcon.game.managers.ScreenManager
-import com.tapcon.game.managers.ScreenManager.Param.*
-import com.tapcon.game.managers.ScreenManager.Screens.MAIN_MENU_SCREEN
-import com.run.cookie.run.game.services.AdsController
+import com.tapcon.game.managers.ScreenManager.Param.FIRST_APP_RUN
+import com.tapcon.game.managers.ScreenManager.Param.SERVICES_CONTROLLER
 
 
 class LoadingScreen(params: Map<ScreenManager.Param, Any>) : Screen {
@@ -47,8 +46,8 @@ class LoadingScreen(params: Map<ScreenManager.Param, Any>) : Screen {
         if (firstRun) prefs.putBoolean(Prefs.FIRST_RUN, false).flush()
         ScreenManager.setGlobalParameter(FIRST_APP_RUN, firstRun)
 
-        manager.load(Descriptors.progressBar)
-        manager.finishLoadingAsset<AssetDescriptor<TextureAtlas>>(Descriptors.progressBar)
+        manager.load(Descriptors.background)
+        manager.finishLoadingAsset<AssetDescriptor<TextureAtlas>>(Descriptors.background)
         if (firstRun.not()) adsManager.showBannerAd()
 
         Gdx.input.inputProcessor = stage
@@ -61,7 +60,7 @@ class LoadingScreen(params: Map<ScreenManager.Param, Any>) : Screen {
     }
 
     override fun render(delta: Float) {
-        if (stage.actors.isEmpty && manager.isLoaded(Descriptors.progressBar)) {
+        if (stage.actors.isEmpty && manager.isLoaded(Descriptors.background)) {
             initProgressBarActors()
             loadResources()
         }
@@ -72,15 +71,11 @@ class LoadingScreen(params: Map<ScreenManager.Param, Any>) : Screen {
             Timer.schedule(object : Timer.Task() {
                 override fun run() {
                     adsManager.hideBannerAd()
-                    setTexturesFilters(manager.get(Descriptors.background))
-                    setTexturesFilters(manager.get(Descriptors.gameOverBackground))
-                    setTexturesFilters(manager.get(Descriptors.comics))
-                    setTexturesFilters(manager.get(Descriptors.menu))
-                    setTexturesFilters(manager.get(Descriptors.cookie))
-                    setTexturesFilters(manager.get(Descriptors.environment))
-
+/*                    setTexturesFilters(manager.get(Descriptors.background))
+                    setTexturesFilters(manager.get(Descriptors.icons))
+                    setTexturesFilters(manager.get(Descriptors.gameInterface))
                     ScreenManager.setGlobalParameter(ASSET_MANAGER, manager)
-                    ScreenManager.setScreen(MAIN_MENU_SCREEN)
+                    ScreenManager.setScreen(MAIN_MENU_SCREEN)*/
                 }
             }, 0.2f)
 
@@ -100,25 +95,21 @@ class LoadingScreen(params: Map<ScreenManager.Param, Any>) : Screen {
 
     private fun initProgressBarActors() {
         val background = Background(manager)
-        progressBar = ProgressBar(manager)
+        //progressBar = ProgressBar(manager)
 
         stage.apply {
             addActor(background)
-            addActor(progressBar)
+            //addActor(progressBar)
         }
     }
 
     private fun loadResources() {
-        manager.load(Descriptors.progressBar) // store unfiltered regions
         manager.load(Descriptors.background)
-        manager.load(Descriptors.gameOverBackground)
-        manager.load(Descriptors.comics)
-        manager.load(Descriptors.menu)
-        manager.load(Descriptors.cookie)
-        manager.load(Descriptors.environment)
-        loadFonts()
-        AudioManager.loadMusic(manager)
-        AudioManager.loadSounds(manager)
+        manager.load(Descriptors.icons)
+        manager.load(Descriptors.gameInterface)
+        //loadFonts()
+        //AudioManager.loadMusic(manager)
+        //AudioManager.loadSounds(manager)
     }
 
     private fun loadFonts() {
@@ -126,8 +117,7 @@ class LoadingScreen(params: Map<ScreenManager.Param, Any>) : Screen {
         manager.setLoader(FreeTypeFontGenerator::class.java, FreeTypeFontGeneratorLoader(resolver))
         manager.setLoader(BitmapFont::class.java, ".ttf", FreetypeFontLoader(resolver))
         manager.load(Descriptors.scoreFont)
-        manager.load(Descriptors.currentScoreFont)
-        manager.load(Descriptors.bestScoreFont)
+        manager.load(Descriptors.mainFont)
     }
 
 

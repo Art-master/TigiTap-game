@@ -1,6 +1,6 @@
 package com.run.cookie.run.game.services
 
-import com.run.cookie.run.game.Config
+import com.tapcon.game.Config
 import java.lang.Exception
 
 interface ServicesController{

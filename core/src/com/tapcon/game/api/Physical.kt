@@ -1,13 +1,8 @@
 package com.tapcon.game.api
 
-import com.badlogic.gdx.assets.AssetManager
-import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.math.Intersector
 import com.badlogic.gdx.math.Rectangle
 import com.badlogic.gdx.scenes.scene2d.Actor
-import com.run.cookie.run.game.Config.Debug
-import com.run.cookie.run.game.data.Assets
-import com.tapcon.game.data.Descriptors
 
 interface Physical{
     fun getBoundsRect() : Rectangle
@@ -18,14 +13,6 @@ interface Physical{
             return true
         }
         return false
-    }
-
-    fun debugCollidesIfEnable(batch: Batch?, manager: AssetManager){
-        if(!Debug.COLLISIONS.state) return
-        val texture = manager.get(Descriptors.environment)
-        val bound = getBoundsRect()
-        val region = texture.findRegion(Assets.EnvironmentAtlas.SHADOW)
-        batch?.draw(region, bound.x, bound.y, bound.width, bound.height)
     }
 
     fun  <T> isAboveObject(actor : T): Boolean where T : Actor, T : Physical {

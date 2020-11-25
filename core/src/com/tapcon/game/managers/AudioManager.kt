@@ -9,9 +9,8 @@ import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver
 import com.badlogic.gdx.audio.Music
 import com.badlogic.gdx.audio.Sound
 import com.badlogic.gdx.utils.Array
-import com.run.cookie.run.game.Config
+import com.tapcon.game.Config
 import com.run.cookie.run.game.Prefs
-import com.run.cookie.run.game.managers.ScreenManager
 
 object AudioManager {
 

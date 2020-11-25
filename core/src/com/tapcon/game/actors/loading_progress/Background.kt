@@ -2,15 +2,13 @@ package com.tapcon.game.actors.loading_progress
 
 import com.badlogic.gdx.assets.AssetManager
 import com.badlogic.gdx.graphics.g2d.Batch
-import com.run.cookie.run.game.data.Assets
 import com.badlogic.gdx.graphics.Color
-import com.run.cookie.run.game.Config
+import com.tapcon.game.Config
 import com.tapcon.game.api.GameActor
 import com.tapcon.game.data.Descriptors
 
 class Background(manager : AssetManager) : GameActor() {
-    private val progressAtlas = manager.get(Descriptors.progressBar)
-    private val whiteSquareRegion = progressAtlas.findRegion(Assets.ProgressAtlas.WHITE_SQUARE)
+    private val background = manager.get(Descriptors.background)
 
     init {
         width = Config.WIDTH_GAME
@@ -25,6 +23,6 @@ class Background(manager : AssetManager) : GameActor() {
     }
 
     private fun drawBackground(batch: Batch){
-        batch.draw(whiteSquareRegion, x, y, width, height)
+        batch.draw(background, x, y, width, height)
     }
 }

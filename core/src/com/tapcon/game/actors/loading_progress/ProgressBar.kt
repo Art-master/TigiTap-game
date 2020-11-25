@@ -2,9 +2,9 @@ package com.tapcon.game.actors.loading_progress
 
 import com.badlogic.gdx.assets.AssetManager
 import com.badlogic.gdx.graphics.g2d.Batch
-import com.run.cookie.run.game.data.Assets
+import com.tapcon.game.data.Assets
 import com.badlogic.gdx.graphics.Color
-import com.run.cookie.run.game.Config
+import com.tapcon.game.Config
 import com.tapcon.game.api.GameActor
 import com.tapcon.game.data.Descriptors
 

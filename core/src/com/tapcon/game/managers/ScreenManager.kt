@@ -1,7 +1,7 @@
 package com.tapcon.game.managers
 
 import com.badlogic.gdx.Game
-import com.run.cookie.run.game.screens.LoadingScreen
+import com.tapcon.game.screens.LoadingScreen
 import java.util.*
 
 object ScreenManager {
@@ -9,7 +9,7 @@ object ScreenManager {
     val globalParameters = EnumMap<Param, Any>(Param::class.java)
 
     enum class Screens {
-        LOADING_SCREEN, MAIN_MENU_SCREEN, GAME_SCREEN, GAME_OVER, COMICS_SCREEN
+        LOADING_SCREEN, MAIN_MENU_SCREEN, GAME_SCREEN, GAME_OVER
     }
 
     enum class Param {

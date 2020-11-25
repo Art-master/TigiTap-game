@@ -1,278 +1,342 @@
 
-iconsGame2.png
+icons.png
+size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-arrowBack
+icon
   rotate: false
-  xy: 1, 853
+  xy: 2, 854
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
-  index: -1
-authorHelp
+  index: 8
+icon
   rotate: false
-  xy: 1, 711
+  xy: 2, 712
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
-  index: -1
-cup
+  index: 19
+icon
   rotate: false
-  xy: 143, 853
+  xy: 144, 854
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
-  index: -1
-dizlayk
+  index: 45
+icon
   rotate: false
-  xy: 1, 569
+  xy: 2, 570
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
-  index: -1
-equally
+  index: 11
+icon
   rotate: false
-  xy: 143, 711
+  xy: 144, 712
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
-  index: -1
-eye
+  index: 24
+icon
   rotate: false
-  xy: 285, 853
+  xy: 286, 854
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
-  index: -1
-gamepad
+  index: 37
+icon
   rotate: false
-  xy: 1, 427
+  xy: 2, 428
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
-  index: -1
-gears
+  index: 16
+icon
   rotate: false
-  xy: 143, 569
+  xy: 144, 570
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
-  index: -1
-hand
+  index: 5
+icon
   rotate: false
-  xy: 285, 711
+  xy: 286, 712
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
-  index: -1
-handsUp
+  index: 29
+icon
   rotate: false
-  xy: 427, 853
+  xy: 428, 854
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
-  index: -1
-heart
+  index: 42
+icon
   rotate: false
-  xy: 1, 285
+  xy: 2, 286
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
-  index: -1
-human
+  index: 21
+icon
   rotate: false
-  xy: 143, 427
+  xy: 144, 428
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
-  index: -1
-lock
+  index: 34
+icon
   rotate: false
-  xy: 285, 569
+  xy: 286, 570
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
-  index: -1
-menu
+  index: 47
+icon
   rotate: false
-  xy: 427, 711
+  xy: 428, 712
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
-  index: -1
-off
+  index: 2
+icon
   rotate: false
-  xy: 569, 853
+  xy: 570, 854
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
-  index: -1
-phone
+  index: 13
+icon
   rotate: false
-  xy: 1, 143
+  xy: 2, 144
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
-  index: -1
-picture
+  index: 26
+icon
   rotate: false
-  xy: 143, 285
+  xy: 144, 286
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
-  index: -1
-pictureBad
+  index: 39
+icon
   rotate: false
-  xy: 285, 427
+  xy: 286, 428
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
-  index: -1
-play
+  index: 18
+icon
   rotate: false
-  xy: 427, 569
+  xy: 428, 570
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
-  index: -1
-plus
+  index: 7
+icon
   rotate: false
-  xy: 569, 711
+  xy: 570, 712
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
-  index: -1
-plus2
+  index: 31
+icon
   rotate: false
-  xy: 711, 853
+  xy: 712, 854
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
-  index: -1
-question
+  index: 44
+icon
   rotate: false
-  xy: 1, 1
+  xy: 2, 2
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
-  index: -1
-refresh
+  index: 10
+icon
   rotate: false
-  xy: 143, 143
+  xy: 144, 144
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
-  index: -1
-reStruct
+  index: 23
+icon
   rotate: false
-  xy: 285, 285
+  xy: 286, 286
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
-  index: -1
-rightArrow
+  index: 36
+icon
   rotate: false
-  xy: 427, 427
+  xy: 428, 428
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
-  index: -1
-save
+  index: 4
+icon
   rotate: false
-  xy: 569, 569
+  xy: 570, 570
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
-  index: -1
-shopping
+  index: 15
+icon
   rotate: false
-  xy: 711, 711
+  xy: 712, 712
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
-  index: -1
-smile
+  index: 28
+icon
   rotate: false
-  xy: 853, 853
+  xy: 854, 854
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
-  index: -1
-bracket
+  index: 41
+icon
   rotate: false
-  xy: 995, 853
-  size: 28, 140
-  orig: 28, 140
-  offset: 0, 0
-  index: -1
-smile_frown
-  rotate: false
-  xy: 143, 1
+  xy: 144, 2
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
-  index: -1
-smile_sad
+  index: 20
+icon
   rotate: false
-  xy: 285, 143
+  xy: 286, 144
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
-  index: -1
-sound
+  index: 33
+icon
   rotate: false
-  xy: 427, 285
+  xy: 428, 286
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
-  index: -1
-stand
+  index: 9
+icon
   rotate: false
-  xy: 569, 427
+  xy: 570, 428
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
-  index: -1
-think
+  index: 46
+icon
   rotate: false
-  xy: 711, 569
+  xy: 712, 570
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
-  index: -1
-three
+  index: 1
+icon
   rotate: false
-  xy: 853, 711
+  xy: 854, 712
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
-  index: -1
-two
+  index: 12
+icon
   rotate: false
-  xy: 285, 1
+  xy: 286, 2
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
-  index: -1
-vibration
+  index: 25
+icon
   rotate: false
-  xy: 427, 143
+  xy: 428, 144
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
-  index: -1
-woman
+  index: 38
+icon
   rotate: false
-  xy: 569, 285
+  xy: 570, 286
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
-  index: -1
-x
+  index: 30
+icon
   rotate: false
-  xy: 711, 427
+  xy: 712, 428
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
-  index: -1
+  index: 6
+icon
+  rotate: false
+  xy: 854, 570
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: 17
+icon
+  rotate: false
+  xy: 428, 2
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: 43
+icon
+  rotate: false
+  xy: 570, 144
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: 22
+icon
+  rotate: false
+  xy: 712, 286
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: 35
+icon
+  rotate: false
+  xy: 854, 428
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: 48
+icon
+  rotate: false
+  xy: 570, 2
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: 14
+icon
+  rotate: false
+  xy: 712, 144
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: 3
+icon
+  rotate: false
+  xy: 854, 286
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: 27
+icon
+  rotate: false
+  xy: 712, 2
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: 40
+icon
+  rotate: false
+  xy: 854, 144
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: 32

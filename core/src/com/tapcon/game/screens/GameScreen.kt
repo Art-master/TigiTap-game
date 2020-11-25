@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.utils.viewport.FillViewport
 import com.badlogic.gdx.utils.viewport.FitViewport
-import com.run.cookie.run.game.Config
+import com.tapcon.game.Config
 import com.run.cookie.run.game.services.AdsController
 import com.tapcon.game.actors.Shadow
 import com.tapcon.game.managers.ScreenManager
