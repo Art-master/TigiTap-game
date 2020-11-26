@@ -14,6 +14,8 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGeneratorLoader
 import com.badlogic.gdx.graphics.g2d.freetype.FreetypeFontLoader
 import com.badlogic.gdx.scenes.scene2d.Stage
+import com.badlogic.gdx.scenes.scene2d.ui.Table
+import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Disposable
 import com.badlogic.gdx.utils.Timer
 import com.badlogic.gdx.utils.viewport.ExtendViewport
@@ -21,6 +23,7 @@ import com.run.cookie.run.game.Prefs
 import com.run.cookie.run.game.services.AdsController
 import com.tapcon.game.Config
 import com.tapcon.game.actors.loading_progress.Background
+import com.tapcon.game.actors.loading_progress.LoadingText
 import com.tapcon.game.actors.loading_progress.ProgressBar
 import com.tapcon.game.data.Assets
 import com.tapcon.game.data.Descriptors
@@ -46,11 +49,18 @@ class LoadingScreen(params: Map<ScreenManager.Param, Any>) : Screen {
         if (firstRun) prefs.putBoolean(Prefs.FIRST_RUN, false).flush()
         ScreenManager.setGlobalParameter(FIRST_APP_RUN, firstRun)
 
-        manager.load(Descriptors.background)
-        manager.finishLoadingAsset<AssetDescriptor<TextureAtlas>>(Descriptors.background)
-        if (firstRun.not()) adsManager.showBannerAd()
-
+        loadStartResources()
         Gdx.input.inputProcessor = stage
+    }
+
+    private fun loadStartResources(){
+        val resolver: FileHandleResolver = InternalFileHandleResolver()
+        manager.setLoader(FreeTypeFontGenerator::class.java, FreeTypeFontGeneratorLoader(resolver))
+        manager.setLoader(BitmapFont::class.java, ".ttf", FreetypeFontLoader(resolver))
+        manager.load(Descriptors.background)
+        manager.load(Descriptors.progressBar)
+        manager.load(Descriptors.juraFont)
+        manager.finishLoading()
     }
 
     override fun hide() {
@@ -60,10 +70,12 @@ class LoadingScreen(params: Map<ScreenManager.Param, Any>) : Screen {
     }
 
     override fun render(delta: Float) {
-        if (stage.actors.isEmpty && manager.isLoaded(Descriptors.background)) {
+        if (stage.actors.isEmpty && manager.isFinished) {
             initProgressBarActors()
             loadResources()
         }
+
+        progressBar?.setProgress(manager.progress)
 
         if (manager.update()) {
             progressBar?.setProgress(0.100f)
@@ -95,10 +107,25 @@ class LoadingScreen(params: Map<ScreenManager.Param, Any>) : Screen {
 
     private fun initProgressBarActors() {
         val background = Background(manager)
-        //progressBar = ProgressBar(manager)
+
+        progressBar = ProgressBar(manager)
+        val loadingText = LoadingText(manager)
+
+        val table = Table().apply {
+            setFillParent(true)
+            add(loadingText).padBottom(50f).align(Align.center)
+            row()
+            add(progressBar).align(Align.left)
+        }
+
+
+
+        table.align(Align.center)
+        //stage.addActor(loadingText)
 
         stage.apply {
             addActor(background)
+            addActor(table)
             //addActor(progressBar)
         }
     }

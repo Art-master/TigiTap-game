@@ -1,41 +1,46 @@
 package com.tapcon.game.actors.loading_progress
 
 import com.badlogic.gdx.assets.AssetManager
-import com.badlogic.gdx.graphics.g2d.Batch
-import com.tapcon.game.data.Assets
 import com.badlogic.gdx.graphics.Color
-import com.tapcon.game.Config
+import com.badlogic.gdx.graphics.g2d.Batch
 import com.tapcon.game.api.GameActor
+import com.tapcon.game.data.Assets
 import com.tapcon.game.data.Descriptors
 
-class ProgressBar(manager : AssetManager) : GameActor() {
+class ProgressBar(manager: AssetManager) : GameActor() {
     private val progressAtlas = manager.get(Descriptors.progressBar)
-    private val barRegion = progressAtlas.findRegion(Assets.ProgressAtlas.PROGRESS_BAR)
-    private val progressLineRegion = progressAtlas.findRegion(Assets.ProgressAtlas.PROGRESS_LINE)
-    private var progressLineWidth = 0f
-    private val progressLineHeight = progressLineRegion.originalHeight.toFloat()
+    private val progressSquare = progressAtlas.findRegion(Assets.ProgressAtlas.SQUARE)
+    private val font = manager.get(Descriptors.juraFont)
+
+    private var progressStep = 20
+    private val progressWidth = (progressSquare.originalWidth * 20) + progressStep
+    private var progress = 0
 
     init {
-        width = barRegion.originalWidth.toFloat()
-        height = barRegion.originalHeight.toFloat()
-        x = (Config.WIDTH_GAME - width) / 2
-        y = 200f
+
     }
 
     override fun draw(batch: Batch?, parentAlpha: Float) {
         batch!!.color = Color.WHITE
-        batch.draw(barRegion, x, y, width, height)
+        batch.draw(progressSquare, x, y, width, height)
 
+        font.color.a = color.a
+        font.draw(batch, "[", x, y)
+        font.draw(batch, "]", x + progressWidth, y)
+        font.draw(batch, "=", x + progressWidth + 30, y)
+        font.draw(batch, "$progress%", x + progressWidth + 60, y)
         drawProgress(batch)
     }
 
-    private fun drawProgress(batch: Batch){
-        batch.draw(progressLineRegion, x + 15, y + 15, progressLineWidth, progressLineHeight)
+    private fun drawProgress(batch: Batch) {
+        var x = x + progressStep / 2
+        for (i in 0 until progress step 5) {
+            batch.draw(progressSquare, x, y - progressSquare.originalHeight.toFloat(), progressSquare.originalWidth.toFloat(), progressSquare.originalHeight.toFloat())
+            x += progressSquare.originalWidth.toFloat()
+        }
     }
 
     fun setProgress(progress: Float) {
-        progressLineWidth = if(progress == 0.1f){
-            progressLineRegion.originalWidth.toFloat()
-        } else (progressLineRegion.originalWidth / 100) * (progress * 100)
+        this.progress = if (progress == 0.1f) 100 else (progress * 100).toInt()
     }
 }

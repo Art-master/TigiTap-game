@@ -13,6 +13,7 @@ class Descriptors {
         val gameInterface = AssetDescriptor(Assets.InterfaceAtlas.NAME, TextureAtlas::class.java)
 
         val mainFont = AssetDescriptor(FontParam.MAIN.fontName, BitmapFont::class.java, FontParam.MAIN.get())
+        val juraFont = AssetDescriptor(FontParam.JURA.fontName, BitmapFont::class.java, FontParam.JURA.get())
         val scoreFont = AssetDescriptor(FontParam.SCORE.fontName, BitmapFont::class.java, FontParam.SCORE.get())
     }
 }

@@ -9,11 +9,9 @@ class Assets {
 
     class ProgressAtlas {
         companion object {
-            const val NAME = "loadingBar.atlas"
-            const val WHITE_SQUARE = "white_square"
-            const val BLACK_SQUARE = "black"
-            const val PROGRESS_BAR = "loading_bar"
-            const val PROGRESS_LINE = "loading_progress"
+            const val NAME = "progressBar.atlas"
+            const val SQUARE = "square"
+            const val LOADING_TEXT = "loading_text"
         }
     }
 
@@ -33,6 +31,7 @@ class Assets {
 
     class Fonts {
         companion object {
+            const val JURA = "fonts/Jura-VariableFont_wght.ttf"
             const val FONT = "fonts/LuckiestGuy-Regular.ttf"
             const val MAIN = "fonts/LuckiestGuy-Regular.ttf"
         }

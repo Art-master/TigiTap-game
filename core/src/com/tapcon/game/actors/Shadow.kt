@@ -15,7 +15,7 @@ import com.tapcon.game.data.Descriptors
 
 class Shadow(val manager: AssetManager) : GameActor(), Animated {
     private val texture = manager.get(Descriptors.progressBar)
-    private var region = texture.findRegion(Assets.ProgressAtlas.BLACK_SQUARE)
+    private var region = texture.findRegion(Assets.ProgressAtlas.SQUARE)
 
     init {
         x = 0f
