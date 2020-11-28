@@ -16,6 +16,9 @@ class LoadingText(manager: AssetManager) : GameActor() {
     }
 
     override fun draw(batch: Batch?, parentAlpha: Float) {
-        batch?.draw(loadingText, x, y, width, height)
+        color.a = parentAlpha
+        batch!!.color = color
+
+        batch.draw(loadingText, x, y, width, height)
     }
 }

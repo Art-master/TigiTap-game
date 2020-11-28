@@ -1,7 +1,7 @@
-package com.run.cookie.run.game
+package com.tapcon.game
 
 object Prefs {
-    const val NAME = "runCookieRunPrefs"
+    const val NAME = "tapConPrefs"
     const val MUSIC = "music"
     const val SOUND = "audio"
     const val VIBRATION = "vibration"

@@ -1,12 +1,8 @@
 package com.tapcon.game.screens
 
 import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.Screen
-import com.badlogic.gdx.assets.AssetDescriptor
-import com.badlogic.gdx.assets.AssetManager
 import com.badlogic.gdx.assets.loaders.FileHandleResolver
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver
-import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
@@ -19,41 +15,40 @@ import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Disposable
 import com.badlogic.gdx.utils.Timer
 import com.badlogic.gdx.utils.viewport.ExtendViewport
-import com.run.cookie.run.game.Prefs
-import com.run.cookie.run.game.services.AdsController
 import com.tapcon.game.Config
+import com.tapcon.game.Prefs
 import com.tapcon.game.actors.loading_progress.Background
 import com.tapcon.game.actors.loading_progress.LoadingText
 import com.tapcon.game.actors.loading_progress.ProgressBar
-import com.tapcon.game.data.Assets
+import com.tapcon.game.api.AnimationType
 import com.tapcon.game.data.Descriptors
 import com.tapcon.game.managers.ScreenManager
 import com.tapcon.game.managers.ScreenManager.Param.FIRST_APP_RUN
-import com.tapcon.game.managers.ScreenManager.Param.SERVICES_CONTROLLER
 
 
-class LoadingScreen(params: Map<ScreenManager.Param, Any>) : Screen {
-
-    private val manager = AssetManager()
-    private val adsManager = params[SERVICES_CONTROLLER] as AdsController
-    private val camera = OrthographicCamera(Config.WIDTH_GAME, Config.HEIGHT_GAME)
-    private val stage = Stage(ExtendViewport(Config.WIDTH_GAME, Config.HEIGHT_GAME, camera))
+class LoadingScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params) {
 
     private var progressBar: ProgressBar? = null
 
     private var firstRun = false
 
     init {
+        stageBackground = Stage(ExtendViewport(Config.WIDTH_GAME, Config.HEIGHT_GAME, camera))
+
         val prefs = Gdx.app.getPreferences(Prefs.NAME)
         firstRun = prefs.getBoolean(Prefs.FIRST_RUN, true)
         if (firstRun) prefs.putBoolean(Prefs.FIRST_RUN, false).flush()
+
         ScreenManager.setGlobalParameter(FIRST_APP_RUN, firstRun)
 
         loadStartResources()
+
+        initProgressBarActors()
+        loadResources()
         Gdx.input.inputProcessor = stage
     }
 
-    private fun loadStartResources(){
+    private fun loadStartResources() {
         val resolver: FileHandleResolver = InternalFileHandleResolver()
         manager.setLoader(FreeTypeFontGenerator::class.java, FreeTypeFontGeneratorLoader(resolver))
         manager.setLoader(BitmapFont::class.java, ".ttf", FreetypeFontLoader(resolver))
@@ -70,31 +65,30 @@ class LoadingScreen(params: Map<ScreenManager.Param, Any>) : Screen {
     }
 
     override fun render(delta: Float) {
-        if (stage.actors.isEmpty && manager.isFinished) {
-            initProgressBarActors()
-            loadResources()
-        }
+        if (progressBar?.progress != 100)
+            if (manager.update()) {
+                progressBar?.progress = 100
 
-        progressBar?.setProgress(manager.progress)
+                Timer.schedule(object : Timer.Task() {
+                    override fun run() {
+                        loadResourcesFinished()
+                    }
+                }, 0.2f)
 
-        if (manager.update()) {
-            progressBar?.setProgress(0.100f)
+            } else progressBar?.progress = (manager.progress * 100).toInt()
 
-            Timer.schedule(object : Timer.Task() {
-                override fun run() {
-                    adsManager.hideBannerAd()
-/*                    setTexturesFilters(manager.get(Descriptors.background))
-                    setTexturesFilters(manager.get(Descriptors.icons))
-                    setTexturesFilters(manager.get(Descriptors.gameInterface))
-                    ScreenManager.setGlobalParameter(ASSET_MANAGER, manager)
-                    ScreenManager.setScreen(MAIN_MENU_SCREEN)*/
-                }
-            }, 0.2f)
+        applyStages(delta)
+    }
 
-        } else progressBar?.setProgress(manager.progress)
+    private fun loadResourcesFinished() {
+        adsController.hideBannerAd()
+        setTexturesFilters(manager.get(Descriptors.background))
+        setTexturesFilters(manager.get(Descriptors.icons))
+        setTexturesFilters(manager.get(Descriptors.gameInterface))
 
-        stage.act(delta)
-        stage.draw()
+        animate(AnimationType.SCENE_TRANSFER, Runnable {
+            ScreenManager.setScreen(ScreenManager.Screens.MAIN_MENU_SCREEN)
+        })
     }
 
     private fun setTexturesFilters(data: Disposable) {
@@ -113,21 +107,13 @@ class LoadingScreen(params: Map<ScreenManager.Param, Any>) : Screen {
 
         val table = Table().apply {
             setFillParent(true)
-            add(loadingText).padBottom(50f).align(Align.center)
+            add(loadingText).padBottom(100f).align(Align.center)
             row()
-            add(progressBar).align(Align.left)
+            add(progressBar).width(1000f).align(Align.left)
+            align(Align.center)
         }
-
-
-
-        table.align(Align.center)
-        //stage.addActor(loadingText)
-
-        stage.apply {
-            addActor(background)
-            addActor(table)
-            //addActor(progressBar)
-        }
+        stageBackground.addActor(background)
+        stage.addActor(table)
     }
 
     private fun loadResources() {
@@ -158,7 +144,7 @@ class LoadingScreen(params: Map<ScreenManager.Param, Any>) : Screen {
     }
 
     override fun dispose() {
-        manager.unload(Assets.ProgressAtlas.NAME)
+        //manager.unload(Assets.ProgressAtlas.NAME)
         stage.dispose()
     }
 }

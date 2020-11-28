@@ -10,7 +10,7 @@ import com.badlogic.gdx.audio.Music
 import com.badlogic.gdx.audio.Sound
 import com.badlogic.gdx.utils.Array
 import com.tapcon.game.Config
-import com.run.cookie.run.game.Prefs
+import com.tapcon.game.Prefs
 
 object AudioManager {
 

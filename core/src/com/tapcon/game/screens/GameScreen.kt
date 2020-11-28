@@ -4,29 +4,27 @@ import com.badlogic.gdx.Screen
 import com.badlogic.gdx.assets.AssetManager
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.scenes.scene2d.Stage
+import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.utils.viewport.FillViewport
 import com.badlogic.gdx.utils.viewport.FitViewport
-import com.tapcon.game.Config
 import com.run.cookie.run.game.services.AdsController
-import com.tapcon.game.actors.Shadow
+import com.tapcon.game.Config
+import com.tapcon.game.api.Animated
+import com.tapcon.game.api.AnimationType
 import com.tapcon.game.managers.ScreenManager
+import com.tapcon.game.managers.ScreenManager.Param.ASSET_MANAGER
+import com.tapcon.game.managers.ScreenManager.Param.SERVICES_CONTROLLER
 
-abstract class GameScreen(params: Map<ScreenManager.Param, Any>) : Screen {
-    val manager = params[ScreenManager.Param.ASSET_MANAGER] as AssetManager
-
-    val adsController = params[ScreenManager.Param.SERVICES_CONTROLLER] as AdsController
+abstract class GameScreen(params: Map<ScreenManager.Param, Any>) : Screen, Animated {
+    val manager = params[ASSET_MANAGER] as AssetManager
+    val adsController = params[SERVICES_CONTROLLER] as AdsController
 
     val camera = OrthographicCamera(Config.WIDTH_GAME, Config.HEIGHT_GAME)
-    val stageBackground = Stage(FillViewport(Config.WIDTH_GAME, Config.HEIGHT_GAME, camera))
+    var stageBackground = Stage(FillViewport(Config.WIDTH_GAME, Config.HEIGHT_GAME, camera))
     var stage = Stage(FitViewport(Config.WIDTH_GAME, Config.HEIGHT_GAME, camera))
-    private val stageShadow = Stage(FillViewport(Config.WIDTH_GAME, Config.HEIGHT_GAME, camera))
-    val shadow = Shadow(manager)
 
-    init {
-        stageShadow.addActor(shadow)
-    }
 
-    fun applyStages(delta: Float){
+    fun applyStages(delta: Float) {
         stageBackground.viewport.apply()
         stageBackground.act(delta)
         stageBackground.draw()
@@ -34,13 +32,20 @@ abstract class GameScreen(params: Map<ScreenManager.Param, Any>) : Screen {
         stage.viewport.apply()
         stage.act(delta)
         stage.draw()
-
-        stageShadow.viewport.apply()
-        stageShadow.act(delta)
-        stageShadow.draw()
     }
 
-    override fun dispose(){
+    override fun animate(type: AnimationType, runAfter: Runnable) {
+        if (type == AnimationType.SCENE_TRANSFER)
+            stage.addAction(
+                    Actions.sequence(
+                            Actions.repeat(3, Actions.sequence(
+                                    Actions.alpha(1f, 0.00f),
+                                    Actions.alpha(0f, 0.3f),
+                                    Actions.delay(0.3f))),
+                            Actions.run(runAfter)))
+    }
+
+    override fun dispose() {
         stageBackground.dispose()
         stage.dispose()
         //stageShadow.dispose() // Early disposing lead to blink
