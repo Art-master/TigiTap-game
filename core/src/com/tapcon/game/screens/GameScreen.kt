@@ -1,10 +1,12 @@
 package com.tapcon.game.screens
 
+import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Screen
 import com.badlogic.gdx.assets.AssetManager
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
+import com.badlogic.gdx.utils.viewport.ExtendViewport
 import com.badlogic.gdx.utils.viewport.FillViewport
 import com.badlogic.gdx.utils.viewport.FitViewport
 import com.run.cookie.run.game.services.AdsController
@@ -20,7 +22,7 @@ abstract class GameScreen(params: Map<ScreenManager.Param, Any>) : Screen, Anima
     val adsController = params[SERVICES_CONTROLLER] as AdsController
 
     val camera = OrthographicCamera(Config.WIDTH_GAME, Config.HEIGHT_GAME)
-    var stageBackground = Stage(FillViewport(Config.WIDTH_GAME, Config.HEIGHT_GAME, camera))
+    var stageBackground = Stage(ExtendViewport(Gdx.graphics.width.toFloat(), Gdx.graphics.height.toFloat(), camera))
     var stage = Stage(FitViewport(Config.WIDTH_GAME, Config.HEIGHT_GAME, camera))
 
 

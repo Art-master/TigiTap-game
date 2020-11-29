@@ -18,6 +18,10 @@ class Assets {
     class InterfaceAtlas {
         companion object {
             const val NAME = "interface.atlas"
+            const val PLAY = "play"
+            const val BORDER_GREEN = "border_green"
+            const val SOUND = "sound"
+            const val VIBRATION = "vibration"
         }
     }
 

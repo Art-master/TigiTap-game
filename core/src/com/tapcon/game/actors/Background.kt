@@ -1,4 +1,4 @@
-package com.tapcon.game.actors.loading_progress
+package com.tapcon.game.actors
 
 import com.badlogic.gdx.assets.AssetManager
 import com.badlogic.gdx.graphics.g2d.Batch

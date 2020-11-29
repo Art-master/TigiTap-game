@@ -17,7 +17,7 @@ import com.badlogic.gdx.utils.Timer
 import com.badlogic.gdx.utils.viewport.ExtendViewport
 import com.tapcon.game.Config
 import com.tapcon.game.Prefs
-import com.tapcon.game.actors.loading_progress.Background
+import com.tapcon.game.actors.Background
 import com.tapcon.game.actors.loading_progress.LoadingText
 import com.tapcon.game.actors.loading_progress.ProgressBar
 import com.tapcon.game.api.AnimationType
@@ -33,8 +33,6 @@ class LoadingScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params) 
     private var firstRun = false
 
     init {
-        stageBackground = Stage(ExtendViewport(Config.WIDTH_GAME, Config.HEIGHT_GAME, camera))
-
         val prefs = Gdx.app.getPreferences(Prefs.NAME)
         firstRun = prefs.getBoolean(Prefs.FIRST_RUN, true)
         if (firstRun) prefs.putBoolean(Prefs.FIRST_RUN, false).flush()
