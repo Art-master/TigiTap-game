@@ -22,6 +22,7 @@ import com.tapcon.game.actors.loading_progress.LoadingText
 import com.tapcon.game.actors.loading_progress.ProgressBar
 import com.tapcon.game.api.AnimationType
 import com.tapcon.game.data.Descriptors
+import com.tapcon.game.managers.AudioManager
 import com.tapcon.game.managers.ScreenManager
 import com.tapcon.game.managers.ScreenManager.Param.FIRST_APP_RUN
 
@@ -119,8 +120,8 @@ class LoadingScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params) 
         manager.load(Descriptors.icons)
         manager.load(Descriptors.gameInterface)
         //loadFonts()
-        //AudioManager.loadMusic(manager)
-        //AudioManager.loadSounds(manager)
+        AudioManager.loadMusic(manager)
+        AudioManager.loadSounds(manager)
     }
 
     private fun loadFonts() {

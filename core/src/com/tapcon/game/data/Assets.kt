@@ -19,9 +19,12 @@ class Assets {
         companion object {
             const val NAME = "interface.atlas"
             const val PLAY = "play"
-            const val BORDER_GREEN = "border_green"
-            const val SOUND = "sound"
-            const val VIBRATION = "vibration"
+            const val BORDER = "border"
+            const val BORDER_MINI = "border_mini"
+            const val SOUND_ICON = "sound_icon"
+            const val MUSIC_ICON = "music_icon"
+            const val VIBRATION_ICON = "vibration_icon"
+            const val GAME_NAME = "game_name"
         }
     }
 

@@ -9,16 +9,17 @@ import com.tapcon.game.data.Descriptors
 
 class PlayButton(manager : AssetManager) : GameActor() {
     private val texture = manager.get(Descriptors.gameInterface)
-    private var border = texture.findRegion(Assets.InterfaceAtlas.BORDER_GREEN)
+    private var border = texture.findRegion(Assets.InterfaceAtlas.BORDER)
     private var playIcon = texture.findRegion(Assets.InterfaceAtlas.PLAY)
 
     init {
-        width = border.originalWidth.toFloat() * 2
-        height = border.originalHeight.toFloat() * 2
+        width = border.originalWidth.toFloat()
+        height = border.originalHeight.toFloat()
     }
 
     override fun draw(batch: Batch?, parentAlpha: Float) {
-        batch!!.color = Color.WHITE
+        color.a = parentAlpha
+        batch!!.color = color
         drawBorder(batch)
         drawPlayIcon(batch)
     }
@@ -28,6 +29,6 @@ class PlayButton(manager : AssetManager) : GameActor() {
     }
 
     private fun drawPlayIcon(batch: Batch){
-        batch.draw(playIcon, x, y, width, height)
+        batch.draw(playIcon, x + 60, y + 60, playIcon.originalWidth.toFloat(), playIcon.originalHeight.toFloat())
     }
 }
