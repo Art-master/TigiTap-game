@@ -1,6 +1,7 @@
 package com.tapcon.game.managers
 
 import com.badlogic.gdx.Game
+import com.tapcon.game.screens.GamePlayScreen
 import com.tapcon.game.screens.LoadingScreen
 import com.tapcon.game.screens.MainMenuScreen
 import java.util.*
@@ -23,6 +24,7 @@ object ScreenManager {
         val nextScreen = when (screen) {
             Screens.LOADING_SCREEN -> LoadingScreen(allParams)
             Screens.MAIN_MENU_SCREEN -> MainMenuScreen(allParams)
+            Screens.GAME_SCREEN -> GamePlayScreen(allParams)
             else -> null
         }
         game?.screen = nextScreen

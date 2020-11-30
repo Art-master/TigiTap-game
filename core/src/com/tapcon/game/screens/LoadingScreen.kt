@@ -9,13 +9,10 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGeneratorLoader
 import com.badlogic.gdx.graphics.g2d.freetype.FreetypeFontLoader
-import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Disposable
 import com.badlogic.gdx.utils.Timer
-import com.badlogic.gdx.utils.viewport.ExtendViewport
-import com.tapcon.game.Config
 import com.tapcon.game.Prefs
 import com.tapcon.game.actors.Background
 import com.tapcon.game.actors.loading_progress.LoadingText

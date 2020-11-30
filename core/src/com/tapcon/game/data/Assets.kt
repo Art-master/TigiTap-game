@@ -25,6 +25,8 @@ class Assets {
             const val MUSIC_ICON = "music_icon"
             const val VIBRATION_ICON = "vibration_icon"
             const val GAME_NAME = "game_name"
+            const val CELL = "cell"
+            const val BRACKET = "bracket"
         }
     }
 

@@ -53,8 +53,8 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.run.cookie.run.game.services.AdsController;
-import com.run.cookie.run.game.services.CallBack;
-import com.run.cookie.run.game.services.ServicesController;
+import com.tapcon.game.services.CallBack;
+import com.tapcon.game.services.ServicesController;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

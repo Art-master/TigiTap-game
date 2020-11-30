@@ -45,6 +45,7 @@ class MainMenuScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
 
         addListenersToButtons(playButton) {
             animate(AnimationType.SCENE_TRANSFER)
+            ScreenManager.setScreen(ScreenManager.Screens.GAME_SCREEN)
         }
     }
 
@@ -52,7 +53,7 @@ class MainMenuScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
         actor.addListener(object : ClickListener() {
             override fun touchDown(event: InputEvent?, x: Float, y: Float, pointer: Int, button: Int): Boolean {
                 function.invoke()
-                if(actor is MenuButton) actor.switch()
+                if (actor is MenuButton) actor.switch()
                 if (AudioManager.isSoundEnable) AudioManager.play(AudioManager.SoundApp.CLICK_SOUND)
                 if (VibrationManager.isVibrationEnable) VibrationManager.vibrate(CLICK)
                 return super.touchDown(event, x, y, pointer, button)

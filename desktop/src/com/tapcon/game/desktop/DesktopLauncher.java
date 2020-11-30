@@ -3,8 +3,8 @@ package com.tapcon.game.desktop;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.run.cookie.run.game.services.AdsController;
-import com.run.cookie.run.game.services.CallBack;
-import com.run.cookie.run.game.services.ServicesController;
+import com.tapcon.game.services.CallBack;
+import com.tapcon.game.services.ServicesController;
 import com.tapcon.game.Config;
 import com.tapcon.game.GdxGame;
 

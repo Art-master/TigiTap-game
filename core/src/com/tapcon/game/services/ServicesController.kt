@@ -1,4 +1,4 @@
-package com.run.cookie.run.game.services
+package com.tapcon.game.services
 
 import com.tapcon.game.Config
 import java.lang.Exception

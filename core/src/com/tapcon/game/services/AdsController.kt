@@ -1,5 +1,7 @@
 package com.run.cookie.run.game.services
 
+import com.tapcon.game.services.ServicesController
+
 interface AdsController: ServicesController {
     fun isWifiConnected(): Boolean
     fun isInterstitialLoaded(): Boolean
