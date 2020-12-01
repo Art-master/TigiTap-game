@@ -3,11 +3,13 @@ package com.tapcon.game.screens
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.scenes.scene2d.Actor
+import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.tapcon.game.Config
 import com.tapcon.game.actors.Background
 import com.tapcon.game.actors.game_play.Bracket
+import com.tapcon.game.actors.game_play.CellIcon
 import com.tapcon.game.actors.game_play.HeadIcon
 import com.tapcon.game.managers.AudioManager
 import com.tapcon.game.managers.ScreenManager
@@ -19,6 +21,16 @@ class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
     private val bracketLeft = Bracket(manager)
     private val bracketRight = Bracket(manager)
     private val headIcon = HeadIcon(manager)
+    private val iconsGroup = Group()
+
+    private val rowCount = 3
+    private val collCount = 7
+
+    private val icons = Array(rowCount * collCount) { CellIcon(manager) }
+
+    private inline fun <T> Array<out T>.forEach(action: (T, Int) -> Unit): Unit {
+        for ((index, element) in this.withIndex()) action(element, index)
+    }
 
     init {
         stageBackground.addActor(Background(manager))
@@ -28,9 +40,36 @@ class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
             addActor(bracketLeft)
             addActor(bracketRight)
             addActor(headIcon)
+            addActor(iconsGroup)
         }
+        setIconsPosition()
+        setIconsGroupPosition()
 
         Gdx.input.inputProcessor = stage
+    }
+
+    private fun setIconsPosition() {
+        var x = 0f
+        var y = 0f
+
+        icons.forEach { element, index ->
+            x = if (index % collCount == 0) {
+                if (index != 0) y += element.height
+                0f
+            } else x + element.width
+
+            element.setPosition(x, y)
+            iconsGroup.addActor(element)
+        }
+    }
+
+    private fun setIconsGroupPosition() {
+        val width = collCount * icons.first().width
+        val height = rowCount * icons.first().height
+        val x = (Config.WIDTH_GAME - width) / 2
+        val y = 50f
+        iconsGroup.setSize(width, height)
+        iconsGroup.setPosition(x, y)
     }
 
     private fun initActors() {
