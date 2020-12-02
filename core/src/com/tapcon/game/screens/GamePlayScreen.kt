@@ -11,12 +11,18 @@ import com.tapcon.game.actors.Background
 import com.tapcon.game.actors.game_play.Bracket
 import com.tapcon.game.actors.game_play.CellIcon
 import com.tapcon.game.actors.game_play.HeadIcon
+import com.tapcon.game.data.Assets
+import com.tapcon.game.data.Descriptors
 import com.tapcon.game.managers.AudioManager
 import com.tapcon.game.managers.ScreenManager
 import com.tapcon.game.managers.VibrationManager
 import com.tapcon.game.managers.VibrationManager.VibrationType.CLICK
+import kotlin.random.Random
 
 class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params) {
+
+    private val atlas = manager.get(Descriptors.icons)
+    private val iconsRegions = atlas.findRegions(Assets.IconsAtlas.ICON)
 
     private val bracketLeft = Bracket(manager)
     private val bracketRight = Bracket(manager)
@@ -26,7 +32,9 @@ class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
     private val rowCount = 3
     private val collCount = 7
 
-    private val icons = Array(rowCount * collCount) { CellIcon(manager) }
+    private val iconsActors = Array(rowCount * collCount) { CellIcon(manager) }
+
+    private val activeMap = HashMap<Int, CellIcon>(iconsRegions.size)
 
     private inline fun <T> Array<out T>.forEach(action: (T, Int) -> Unit): Unit {
         for ((index, element) in this.withIndex()) action(element, index)
@@ -45,6 +53,8 @@ class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
         setIconsPosition()
         setIconsGroupPosition()
 
+        setNewActiveIcon()// Test
+
         Gdx.input.inputProcessor = stage
     }
 
@@ -52,20 +62,44 @@ class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
         var x = 0f
         var y = 0f
 
-        icons.forEach { element, index ->
+        iconsActors.forEach { element, index ->
             x = if (index % collCount == 0) {
                 if (index != 0) y += element.height
                 0f
             } else x + element.width
 
             element.setPosition(x, y)
+            addClickListener(element) {
+                setNewActiveIcon()
+            }
             iconsGroup.addActor(element)
         }
     }
 
+    private fun setNewActiveIcon() {
+        val iconNumber = getUniqueRandomNumber({ activeMap.contains(it) }, iconsRegions.size)
+        val actorNumber = getUniqueRandomNumber({ iconsActors[it].isActive() }, iconsActors.size)
+        val icon = iconsActors[actorNumber]
+        activeMap[iconNumber] = icon
+        icon.setIconByNumber(iconNumber)
+    }
+
+    private fun getUniqueRandomNumber(condition: (num: Int) -> Boolean, size: Int): Int {
+        var number = Random.nextInt(size)
+        var wasReset = false
+        while (condition.invoke(number++)) {
+            if (number >= size) {
+                number = 0
+                if (wasReset.not()) wasReset = true
+                else throw IllegalStateException("all icons slots busy")
+            }
+        }
+        return number - 1
+    }
+
     private fun setIconsGroupPosition() {
-        val width = collCount * icons.first().width
-        val height = rowCount * icons.first().height
+        val width = collCount * iconsActors.first().width
+        val height = rowCount * iconsActors.first().height
         val x = (Config.WIDTH_GAME - width) / 2
         val y = 50f
         iconsGroup.setSize(width, height)
@@ -83,7 +117,7 @@ class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
         bracketRight.setPosition(headX + (headIcon.width * 2), headY)
     }
 
-    private fun addListenersToButtons(actor: Actor, function: () -> Unit) {
+    private fun addClickListener(actor: Actor, function: () -> Unit) {
         actor.addListener(object : ClickListener() {
             override fun touchDown(event: InputEvent?, x: Float, y: Float, pointer: Int, button: Int): Boolean {
                 function.invoke()
