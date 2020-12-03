@@ -12,6 +12,7 @@ class CellIcon(manager: AssetManager) : GameActor() {
     private val borderRegion = atlas.findRegion(Assets.InterfaceAtlas.CELL)
     private val regions = manager.get(Descriptors.icons).findRegions(Assets.IconsAtlas.ICON)
     private var region: TextureAtlas.AtlasRegion? = null
+    var isMain = false
 
     init {
         width = borderRegion.originalWidth.toFloat()
@@ -32,15 +33,18 @@ class CellIcon(manager: AssetManager) : GameActor() {
         if (region == null) return
         val width = region.originalWidth.toFloat()
         val height = region.originalHeight.toFloat()
-        batch.draw(region, x, y, originX, originY, width, height, scaleX, scaleY, rotation)
+        val x = (this.width - width) / 2
+        val y = (this.height - height) / 2
+        batch.draw(region, this.x + x, this.y + y, originX, originY, width, height, scaleX, scaleY, rotation)
     }
 
     fun setIconByNumber(number: Int) {
         region = regions[number]
     }
 
-    fun clearIcon(number: Int) {
+    fun clearInfo() {
         region = null
+        isMain = false
     }
 
     fun isActive() = region != null

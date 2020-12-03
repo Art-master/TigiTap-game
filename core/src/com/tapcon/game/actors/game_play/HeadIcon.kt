@@ -7,8 +7,9 @@ import com.tapcon.game.data.Assets
 import com.tapcon.game.data.Descriptors
 
 class HeadIcon(manager: AssetManager) : GameActor() {
-    private val atlas = manager.get(Descriptors.gameInterface)
-    private val region = atlas.findRegion(Assets.InterfaceAtlas.PLAY)
+    private val atlas = manager.get(Descriptors.icons)
+    private val regions = atlas.findRegions(Assets.IconsAtlas.ICON)
+    private var region = regions.first()
 
     init {
         width = region.originalWidth.toFloat()
@@ -19,5 +20,9 @@ class HeadIcon(manager: AssetManager) : GameActor() {
         color.a = parentAlpha
         batch!!.color = color
         batch.draw(region, x, y, originX, originY, width, height, scaleX, scaleY, rotation)
+    }
+
+    fun setIconNumber(num: Int){
+        region = regions[num]
     }
 }

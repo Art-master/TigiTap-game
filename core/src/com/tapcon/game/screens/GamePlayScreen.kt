@@ -32,6 +32,9 @@ class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
     private val rowCount = 3
     private val collCount = 7
 
+    private var numIconsOnScene = 1
+    private var numMainIcon = -1
+
     private val iconsActors = Array(rowCount * collCount) { CellIcon(manager) }
 
     private val activeMap = HashMap<Int, CellIcon>(iconsRegions.size)
@@ -53,7 +56,8 @@ class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
         setIconsPosition()
         setIconsGroupPosition()
 
-        setNewActiveIcon()// Test
+        numMainIcon = setNewActiveIcon()// Test
+        setMainIcon(numMainIcon)
 
         Gdx.input.inputProcessor = stage
     }
@@ -70,18 +74,43 @@ class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
 
             element.setPosition(x, y)
             addClickListener(element) {
-                setNewActiveIcon()
+                if (element.isActive().not()) return@addClickListener false
+                if (numIconsOnScene < iconsActors.size) numIconsOnScene += 1
+                if (element.isMain) {
+                    reInitActors()
+                    setMainIcon()
+                }
+                return@addClickListener true
             }
             iconsGroup.addActor(element)
         }
     }
 
-    private fun setNewActiveIcon() {
+    private fun setMainIcon(value: Int = -1) {
+        numMainIcon = if (value == -1) {
+            val randomValue = Random.nextInt(0, numIconsOnScene - 1)
+            activeMap.keys.elementAt(randomValue)
+        } else value
+        activeMap[numMainIcon]?.isMain = true
+        headIcon.setIconNumber(numMainIcon)
+    }
+
+    private fun reInitActors() {
+        activeMap.clear()
+        iconsActors.forEach { element, _ -> element.clearInfo() }
+        for (num in 1..numIconsOnScene) {
+            setNewActiveIcon()
+        }
+    }
+
+    private fun setNewActiveIcon(): Int {
         val iconNumber = getUniqueRandomNumber({ activeMap.contains(it) }, iconsRegions.size)
         val actorNumber = getUniqueRandomNumber({ iconsActors[it].isActive() }, iconsActors.size)
         val icon = iconsActors[actorNumber]
         activeMap[iconNumber] = icon
         icon.setIconByNumber(iconNumber)
+        if (numMainIcon == iconNumber) icon.isMain = true
+        return iconNumber
     }
 
     private fun getUniqueRandomNumber(condition: (num: Int) -> Boolean, size: Int): Int {
@@ -91,7 +120,7 @@ class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
             if (number >= size) {
                 number = 0
                 if (wasReset.not()) wasReset = true
-                else throw IllegalStateException("all icons slots busy")
+                else throw IllegalStateException("all slots busy")
             }
         }
         return number - 1
@@ -117,10 +146,10 @@ class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
         bracketRight.setPosition(headX + (headIcon.width * 2), headY)
     }
 
-    private fun addClickListener(actor: Actor, function: () -> Unit) {
+    private fun addClickListener(actor: Actor, function: () -> Boolean) {
         actor.addListener(object : ClickListener() {
             override fun touchDown(event: InputEvent?, x: Float, y: Float, pointer: Int, button: Int): Boolean {
-                function.invoke()
+                if (function.invoke().not()) return false
                 if (AudioManager.isSoundEnable) AudioManager.play(AudioManager.SoundApp.CLICK_SOUND)
                 if (VibrationManager.isVibrationEnable) VibrationManager.vibrate(CLICK)
                 return super.touchDown(event, x, y, pointer, button)
