@@ -138,12 +138,15 @@ class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
     private fun initActors() {
         val headX = (Config.WIDTH_GAME - headIcon.width) / 2
         val headY = Config.HEIGHT_GAME - bracketLeft.height - 50f
-        bracketLeft.setPosition(headX - headIcon.width, headY)
+        val padding = 100f
+
+        bracketLeft.setPosition(headX - padding, headY)
 
         headIcon.setPosition(headX, headY)
+        headIcon.setSize(bracketLeft.height, bracketLeft.height)
 
         bracketRight.scaleX = -1f
-        bracketRight.setPosition(headX + (headIcon.width * 2), headY)
+        bracketRight.setPosition(headIcon.tailX + padding, headY)
     }
 
     private fun addClickListener(actor: Actor, function: () -> Boolean) {

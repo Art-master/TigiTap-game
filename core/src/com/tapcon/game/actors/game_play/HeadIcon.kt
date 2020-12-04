@@ -11,15 +11,17 @@ class HeadIcon(manager: AssetManager) : GameActor() {
     private val regions = atlas.findRegions(Assets.IconsAtlas.ICON)
     private var region = regions.first()
 
-    init {
-        width = region.originalWidth.toFloat()
-        height = region.originalHeight.toFloat()
-    }
-
     override fun draw(batch: Batch?, parentAlpha: Float) {
         color.a = parentAlpha
         batch!!.color = color
-        batch.draw(region, x, y, originX, originY, width, height, scaleX, scaleY, rotation)
+
+        region?.let {
+            val width = region.originalWidth.toFloat()
+            val height = region.originalHeight.toFloat()
+            val x = this.x + (this.width - width) / 2
+            val y = this.y + (this.height - height) / 2
+            batch.draw(region, x, y, originX, originY, width, height, scaleX, scaleY, rotation)
+        }
     }
 
     fun setIconNumber(num: Int){
