@@ -27,6 +27,8 @@ class Assets {
             const val GAME_NAME = "game_name"
             const val CELL = "cell"
             const val BRACKET = "bracket"
+            const val TIME_BORDER = "time_border"
+            const val TIME_ICON = "timer_icon"
         }
     }
 

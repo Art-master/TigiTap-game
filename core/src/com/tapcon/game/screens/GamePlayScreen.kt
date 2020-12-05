@@ -10,6 +10,7 @@ import com.tapcon.game.Config
 import com.tapcon.game.actors.Background
 import com.tapcon.game.actors.game_play.Bracket
 import com.tapcon.game.actors.game_play.CellIcon
+import com.tapcon.game.actors.game_play.GameTimer
 import com.tapcon.game.actors.game_play.HeadIcon
 import com.tapcon.game.data.Assets
 import com.tapcon.game.data.Descriptors
@@ -27,6 +28,7 @@ class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
     private val bracketLeft = Bracket(manager)
     private val bracketRight = Bracket(manager)
     private val headIcon = HeadIcon(manager)
+    private val timer = GameTimer(manager)
     private val iconsGroup = Group()
 
     private val rowCount = 3
@@ -45,24 +47,27 @@ class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
 
     init {
         stageBackground.addActor(Background(manager))
-        initActors()
+        initActorsPositions()
 
         stage.apply {
             addActor(bracketLeft)
             addActor(bracketRight)
+            addActor(timer)
             addActor(headIcon)
             addActor(iconsGroup)
         }
-        setIconsPosition()
+        initIconsMatrix()
         setIconsGroupPosition()
 
         numMainIcon = setNewActiveIcon()// Test
         setMainIcon(numMainIcon)
 
+        startControlGameOver()
+
         Gdx.input.inputProcessor = stage
     }
 
-    private fun setIconsPosition() {
+    private fun initIconsMatrix() {
         var x = 0f
         var y = 0f
 
@@ -79,6 +84,7 @@ class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
                 if (element.isMain) {
                     reInitActors()
                     setMainIcon()
+                    timer.increaseTimer()
                 }
                 return@addClickListener true
             }
@@ -135,18 +141,21 @@ class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
         iconsGroup.setPosition(x, y)
     }
 
-    private fun initActors() {
+    private fun initActorsPositions() {
+        headIcon.setSize(bracketLeft.height, bracketLeft.height)
+
         val headX = (Config.WIDTH_GAME - headIcon.width) / 2
         val headY = Config.HEIGHT_GAME - bracketLeft.height - 50f
         val padding = 100f
 
         bracketLeft.setPosition(headX - padding, headY)
-
         headIcon.setPosition(headX, headY)
-        headIcon.setSize(bracketLeft.height, bracketLeft.height)
+
 
         bracketRight.scaleX = -1f
         bracketRight.setPosition(headIcon.tailX + padding, headY)
+
+        timer.setPosition((Config.WIDTH_GAME - timer.width) / 2, headY - timer.height - 50)
     }
 
     private fun addClickListener(actor: Actor, function: () -> Boolean) {
@@ -158,6 +167,13 @@ class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
                 return super.touchDown(event, x, y, pointer, button)
             }
         })
+    }
+
+    private fun startControlGameOver() {
+        timer.onTimerExpired {
+            ScreenManager.setScreen(ScreenManager.Screens.GAME_OVER)
+            AudioManager.stopAll()
+        }
     }
 
     override fun hide() {
