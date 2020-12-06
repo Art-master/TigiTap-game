@@ -1,6 +1,7 @@
 package com.tapcon.game.managers
 
 import com.badlogic.gdx.Game
+import com.tapcon.game.screens.GameOverScreen
 import com.tapcon.game.screens.GamePlayScreen
 import com.tapcon.game.screens.LoadingScreen
 import com.tapcon.game.screens.MainMenuScreen
@@ -25,6 +26,7 @@ object ScreenManager {
             Screens.LOADING_SCREEN -> LoadingScreen(allParams)
             Screens.MAIN_MENU_SCREEN -> MainMenuScreen(allParams)
             Screens.GAME_SCREEN -> GamePlayScreen(allParams)
+            Screens.GAME_OVER-> GameOverScreen(allParams)
             else -> null
         }
         game?.screen = nextScreen
