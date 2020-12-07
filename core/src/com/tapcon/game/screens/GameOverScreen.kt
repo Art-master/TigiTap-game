@@ -8,42 +8,34 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.badlogic.gdx.utils.Align
 import com.tapcon.game.actors.Background
-import com.tapcon.game.actors.main_menu.GameName
-import com.tapcon.game.actors.main_menu.MenuButton
-import com.tapcon.game.actors.main_menu.PlayButton
+import com.tapcon.game.actors.game_over.GameOverTitle
+import com.tapcon.game.actors.game_over.Button
 import com.tapcon.game.api.AnimationType
-import com.tapcon.game.data.Assets.InterfaceAtlas.Companion.MUSIC_ICON
-import com.tapcon.game.data.Assets.InterfaceAtlas.Companion.SOUND_ICON
-import com.tapcon.game.data.Assets.InterfaceAtlas.Companion.VIBRATION_ICON
+import com.tapcon.game.data.Assets
 import com.tapcon.game.managers.AudioManager
 import com.tapcon.game.managers.ScreenManager
 import com.tapcon.game.managers.VibrationManager
 import com.tapcon.game.managers.VibrationManager.VibrationType.CLICK
 
 class GameOverScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params) {
-
-    private val playButton = PlayButton(manager)
-    private val musicButton = MenuButton(manager, MUSIC_ICON, AudioManager.isMusicEnable)
-    private val soundButton = MenuButton(manager, SOUND_ICON, AudioManager.isSoundEnable)
-    private val vibrationButton = MenuButton(manager, VIBRATION_ICON, VibrationManager.isVibrationEnable)
-    private val gameName = GameName(manager)
+    private val replayButton = Button(manager, Assets.InterfaceAtlas.RELOAD_ICON)
+    private val mainMenuButton = Button(manager, Assets.InterfaceAtlas.MENU_ICON)
+    private val shareButton = Button(manager, Assets.InterfaceAtlas.SHARE_ICON)
+    private val awardsButton = Button(manager, Assets.InterfaceAtlas.AWARDS_ICON)
+    private val scoresButton = Button(manager, Assets.InterfaceAtlas.SCORES_ICON)
+    private val gameOverTitle = GameOverTitle(manager)
 
     init {
         stageBackground.addActor(Background(manager))
-        buildLayout()
+
+        //stage.addActor(gameOverTitle)
+
+        setActorsPosition()
+        buildButtonsLayout()
 
         Gdx.input.inputProcessor = stage
 
-        addListenersToButtons(musicButton) {
-            AudioManager.switchMusicSetting()
-            //if(AudioManager.isMusicEnable) AudioManager.play(AudioManager.MusicApp.GAME_MUSIC) //TODO Game Music
-        }
-
-        addListenersToButtons(soundButton) { AudioManager.switchSoundSetting() }
-
-        addListenersToButtons(vibrationButton) { VibrationManager.switchVibrationSetting() }
-
-        addListenersToButtons(playButton) {
+        addListenersToButtons(replayButton) {
             animate(AnimationType.SCENE_TRANSFER)
             ScreenManager.setScreen(ScreenManager.Screens.GAME_SCREEN)
         }
@@ -53,7 +45,6 @@ class GameOverScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
         actor.addListener(object : ClickListener() {
             override fun touchDown(event: InputEvent?, x: Float, y: Float, pointer: Int, button: Int): Boolean {
                 function.invoke()
-                if (actor is MenuButton) actor.switch()
                 if (AudioManager.isSoundEnable) AudioManager.play(AudioManager.SoundApp.CLICK_SOUND)
                 if (VibrationManager.isVibrationEnable) VibrationManager.vibrate(CLICK)
                 return super.touchDown(event, x, y, pointer, button)
@@ -61,19 +52,31 @@ class GameOverScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
         })
     }
 
-    private fun buildLayout() {
+    private fun setActorsPosition(){
+
+    }
+
+    private fun buildButtonsLayout() {
+        val tableTitle = Table().apply {
+            setFillParent(true)
+            setDebug(true)
+            row()
+            add(gameOverTitle).width(600f).padTop(100f)
+            align(Align.center)
+            align(Align.top)
+        }
+
         val table = Table().apply {
             setFillParent(true)
-            row().expand()
-            add(gameName).padBottom(100f).center().colspan(30)
-            row().expandX().padBottom(30f)
-            add(playButton).padBottom(100f).center().colspan(30)
-            row().expandX().padBottom(30f)
-            add(musicButton).padLeft(50f).align(Align.left)
-            add(soundButton).padLeft(50f).align(Align.left).colspan(20)
-            add(vibrationButton).padRight(30f).align(Align.right)
-            align(Align.center)
+            row().padBottom(50f).center()
+            add(replayButton).padRight(100f)
+            add(mainMenuButton).padRight(100f)
+            add(shareButton).padRight(100f)
+            add(awardsButton).padRight(100f)
+            add(scoresButton)
+            align(Align.center).align(Align.bottom)
         }
+        stage.addActor(tableTitle)
         stage.addActor(table)
     }
 

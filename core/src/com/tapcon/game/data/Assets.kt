@@ -29,6 +29,11 @@ class Assets {
             const val BRACKET = "bracket"
             const val TIME_BORDER = "time_border"
             const val TIME_ICON = "timer_icon"
+            const val RELOAD_ICON = "reload"
+            const val MENU_ICON = "menu"
+            const val SHARE_ICON = "share"
+            const val AWARDS_ICON = "awards"
+            const val SCORES_ICON = "scores"
         }
     }
 

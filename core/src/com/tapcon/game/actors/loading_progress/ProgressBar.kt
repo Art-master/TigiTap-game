@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.g2d.Batch
 import com.tapcon.game.api.GameActor
 import com.tapcon.game.data.Assets
 import com.tapcon.game.data.Descriptors
-import java.awt.Color
 
 class ProgressBar(manager: AssetManager) : GameActor() {
     private val progressAtlas = manager.get(Descriptors.progressBar)
