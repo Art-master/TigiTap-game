@@ -47,9 +47,7 @@ class Assets {
 
     class Fonts {
         companion object {
-            const val JURA = "fonts/Jura-VariableFont_wght.ttf"
-            const val FONT = "fonts/LuckiestGuy-Regular.ttf"
-            const val MAIN = "fonts/LuckiestGuy-Regular.ttf"
+            const val MAIN = "fonts/Jura-VariableFont_wght.ttf"
         }
     }
 }

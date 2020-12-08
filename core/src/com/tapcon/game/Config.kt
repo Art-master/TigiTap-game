@@ -9,11 +9,8 @@ object Config {
 
     enum class Debug(var state: Boolean, var info: Any = 0) {
         COLLISIONS(false),
-        COOKIE_POSITION(false),
-        EMPTY_TABLE(false),
         PLAY_SERVICES(false),
-        ADS(false),
-        CERTAIN_TABLE_ITEM(false, 20),
+        ADS(false)
     }
 
     enum class Achievement(val score: Int) {

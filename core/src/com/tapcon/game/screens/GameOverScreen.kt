@@ -10,6 +10,7 @@ import com.badlogic.gdx.utils.Align
 import com.tapcon.game.actors.Background
 import com.tapcon.game.actors.game_over.GameOverTitle
 import com.tapcon.game.actors.game_over.Button
+import com.tapcon.game.actors.game_over.Score
 import com.tapcon.game.api.AnimationType
 import com.tapcon.game.data.Assets
 import com.tapcon.game.managers.AudioManager
@@ -24,14 +25,14 @@ class GameOverScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
     private val awardsButton = Button(manager, Assets.InterfaceAtlas.AWARDS_ICON)
     private val scoresButton = Button(manager, Assets.InterfaceAtlas.SCORES_ICON)
     private val gameOverTitle = GameOverTitle(manager)
+    private val bestScore = Score(manager, "Best:", 10000) // TODO
+    private val lastScore = Score(manager, "Last:", 10000) // TODO
 
     init {
         stageBackground.addActor(Background(manager))
 
-        //stage.addActor(gameOverTitle)
-
         setActorsPosition()
-        buildButtonsLayout()
+        buildLayouts()
 
         Gdx.input.inputProcessor = stage
 
@@ -53,17 +54,27 @@ class GameOverScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
     }
 
     private fun setActorsPosition(){
-
+        gameOverTitle.animate(AnimationType.SHOW_ON_SCENE)
     }
 
-    private fun buildButtonsLayout() {
+    private fun buildLayouts() {
         val tableTitle = Table().apply {
             setFillParent(true)
-            setDebug(true)
             row()
-            add(gameOverTitle).width(600f).padTop(100f)
+            add(gameOverTitle).width(1000f).padTop(100f)
             align(Align.center)
             align(Align.top)
+        }
+
+        val scoresTable = Table().apply {
+            setFillParent(true)
+            padBottom(200f)
+            padLeft(400f)
+            row()
+            add(bestScore)
+            row().padTop(100f)
+            add(lastScore)
+            align(Align.left)
         }
 
         val table = Table().apply {
@@ -77,6 +88,7 @@ class GameOverScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
             align(Align.center).align(Align.bottom)
         }
         stage.addActor(tableTitle)
+        stage.addActor(scoresTable)
         stage.addActor(table)
     }
 

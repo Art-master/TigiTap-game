@@ -83,7 +83,7 @@ class LoadingScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params) 
         setTexturesFilters(manager.get(Descriptors.gameInterface))
 
         animate(AnimationType.SCENE_TRANSFER, Runnable {
-            ScreenManager.setScreen(ScreenManager.Screens.GAME_OVER) //TODO change screen
+            ScreenManager.setScreen(ScreenManager.Screens.GAME_SCREEN)
         })
     }
 
@@ -116,15 +116,12 @@ class LoadingScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params) 
         manager.load(Descriptors.background)
         manager.load(Descriptors.icons)
         manager.load(Descriptors.gameInterface)
-        //loadFonts()
+        loadFonts()
         AudioManager.loadMusic(manager)
         AudioManager.loadSounds(manager)
     }
 
     private fun loadFonts() {
-        val resolver: FileHandleResolver = InternalFileHandleResolver()
-        manager.setLoader(FreeTypeFontGenerator::class.java, FreeTypeFontGeneratorLoader(resolver))
-        manager.setLoader(BitmapFont::class.java, ".ttf", FreetypeFontLoader(resolver))
         manager.load(Descriptors.scoreFont)
         manager.load(Descriptors.mainFont)
     }
