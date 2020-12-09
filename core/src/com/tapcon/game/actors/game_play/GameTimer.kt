@@ -9,11 +9,14 @@ import com.tapcon.game.api.GameActor
 import com.tapcon.game.data.Assets
 import com.tapcon.game.data.Descriptors
 import java.util.*
+import java.util.concurrent.atomic.AtomicBoolean
 import kotlin.concurrent.scheduleAtFixedRate
 
 class GameTimer(manager: AssetManager) : GameActor(), Animated {
     private val atlas = manager.get(Descriptors.gameInterface)
     private val borderRegion = atlas.findRegion(Assets.InterfaceAtlas.TIME_BORDER)
+    private val timeIcon = atlas.findRegion(Assets.InterfaceAtlas.TIME_ICON)
+
     private val square = manager.get(Descriptors.progressBar).findRegion(Assets.ProgressAtlas.SQUARE)
     private var progressStep = 20
     private var timePercent = 100
@@ -23,6 +26,8 @@ class GameTimer(manager: AssetManager) : GameActor(), Animated {
     private var onTimerExpired: (() -> Any)? = null
 
     private val timer: Timer = Timer()
+
+    private val isTimerCancel = AtomicBoolean(false)
 
     init {
         width = borderRegion.originalWidth.toFloat()
@@ -35,9 +40,18 @@ class GameTimer(manager: AssetManager) : GameActor(), Animated {
         timer.scheduleAtFixedRate(0L, timerPeriod) {
             if (timePercent > 0) timePercent--
             else {
+                isTimerCancel.set(true)
                 timer.cancel()
-                onTimerExpired?.invoke()
             }
+        }
+    }
+
+    override fun act(delta: Float) {
+        super.act(delta)
+
+        if(isTimerCancel.get()){
+            onTimerExpired?.invoke()
+            isTimerCancel.set(isTimerCancel.get().not())
         }
     }
 
@@ -54,7 +68,14 @@ class GameTimer(manager: AssetManager) : GameActor(), Animated {
         batch!!.color = color
 
         batch.draw(borderRegion, x, y, originX, originY, width, height, scaleX, scaleY, rotation)
+        drawTimeIcon(batch)
         drawProgress(batch)
+    }
+
+    private fun drawTimeIcon(batch: Batch){
+        val iconW = timeIcon.originalWidth.toFloat()
+        val iconH = timeIcon.originalHeight.toFloat()
+        batch.draw(timeIcon, x - iconW - 30, y, originX, originY, iconW, iconH, scaleX, scaleY, rotation)
     }
 
     private fun drawProgress(batch: Batch) {
@@ -67,8 +88,8 @@ class GameTimer(manager: AssetManager) : GameActor(), Animated {
         }
     }
 
-    fun onTimerExpired(func: () -> Any){
-
+    fun onTimerExpired(func: () -> Any) {
+        onTimerExpired = func
     }
 
     override fun animate(type: AnimationType, runAfter: Runnable) {

@@ -7,9 +7,10 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.badlogic.gdx.utils.Align
+import com.tapcon.game.Prefs
 import com.tapcon.game.actors.Background
-import com.tapcon.game.actors.game_over.GameOverTitle
 import com.tapcon.game.actors.game_over.Button
+import com.tapcon.game.actors.game_over.GameOverTitle
 import com.tapcon.game.actors.game_over.Score
 import com.tapcon.game.api.AnimationType
 import com.tapcon.game.data.Assets
@@ -19,17 +20,24 @@ import com.tapcon.game.managers.VibrationManager
 import com.tapcon.game.managers.VibrationManager.VibrationType.CLICK
 
 class GameOverScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params) {
+
     private val replayButton = Button(manager, Assets.InterfaceAtlas.RELOAD_ICON)
     private val mainMenuButton = Button(manager, Assets.InterfaceAtlas.MENU_ICON)
     private val shareButton = Button(manager, Assets.InterfaceAtlas.SHARE_ICON)
     private val awardsButton = Button(manager, Assets.InterfaceAtlas.AWARDS_ICON)
     private val scoresButton = Button(manager, Assets.InterfaceAtlas.SCORES_ICON)
     private val gameOverTitle = GameOverTitle(manager)
-    private val bestScore = Score(manager, "Best:", 10000) // TODO
-    private val lastScore = Score(manager, "Last:", 10000) // TODO
+
+    private val scoreNum = params[ScreenManager.Param.SCORE] as Int
+    private var bestScoreNum: Int = 0
+
+    private val bestScore = Score(manager, "Best:", bestScoreNum)
+    private val lastScore = Score(manager, "Last:", scoreNum)
 
     init {
         stageBackground.addActor(Background(manager))
+
+        initScoreNum()
 
         setActorsPosition()
         buildLayouts()
@@ -40,6 +48,15 @@ class GameOverScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
             animate(AnimationType.SCENE_TRANSFER)
             ScreenManager.setScreen(ScreenManager.Screens.GAME_SCREEN)
         }
+    }
+
+    private fun initScoreNum() {
+        bestScoreNum = prefs.getInteger(Prefs.BEST_SCORE)
+        if (bestScoreNum == 0) bestScoreNum = scoreNum
+        if (scoreNum > bestScoreNum) bestScoreNum = scoreNum
+        bestScore.score = bestScoreNum
+
+        prefs.putInteger(Prefs.BEST_SCORE, bestScoreNum).flush()
     }
 
     private fun addListenersToButtons(actor: Actor, function: () -> Unit) {
@@ -53,7 +70,7 @@ class GameOverScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
         })
     }
 
-    private fun setActorsPosition(){
+    private fun setActorsPosition() {
         gameOverTitle.animate(AnimationType.SHOW_ON_SCENE)
     }
 

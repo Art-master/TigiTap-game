@@ -8,10 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.tapcon.game.Config
 import com.tapcon.game.actors.Background
-import com.tapcon.game.actors.game_play.Bracket
-import com.tapcon.game.actors.game_play.CellIcon
-import com.tapcon.game.actors.game_play.GameTimer
-import com.tapcon.game.actors.game_play.HeadIcon
+import com.tapcon.game.actors.game_play.*
 import com.tapcon.game.data.Assets
 import com.tapcon.game.data.Descriptors
 import com.tapcon.game.managers.AudioManager
@@ -29,6 +26,7 @@ class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
     private val bracketRight = Bracket(manager)
     private val headIcon = HeadIcon(manager)
     private val timer = GameTimer(manager)
+    private val scoreActor = Score(manager)
     private val iconsGroup = Group()
 
     private val rowCount = 3
@@ -36,6 +34,8 @@ class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
 
     private var numIconsOnScene = 1
     private var numMainIcon = -1
+
+    private var score = 0
 
     private val iconsActors = Array(rowCount * collCount) { CellIcon(manager) }
 
@@ -55,7 +55,9 @@ class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
             addActor(timer)
             addActor(headIcon)
             addActor(iconsGroup)
+            addActor(scoreActor)
         }
+
         initIconsMatrix()
         setIconsGroupPosition()
 
@@ -84,7 +86,11 @@ class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
                 if (element.isMain) {
                     reInitActors()
                     setMainIcon()
+                    scoreActor.score = ++score
                     timer.increaseTimer()
+                } else {
+                    if (score > 0) scoreActor.score = --score
+                    timer.decreaseTimer()
                 }
                 return@addClickListener true
             }
@@ -171,8 +177,9 @@ class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
 
     private fun startControlGameOver() {
         timer.onTimerExpired {
-            ScreenManager.setScreen(ScreenManager.Screens.GAME_OVER)
             AudioManager.stopAll()
+            ScreenManager.setScreen(ScreenManager.Screens.GAME_OVER,
+                    Pair(ScreenManager.Param.SCORE, score))
         }
     }
 

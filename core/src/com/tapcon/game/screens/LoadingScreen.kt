@@ -83,7 +83,7 @@ class LoadingScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params) 
         setTexturesFilters(manager.get(Descriptors.gameInterface))
 
         animate(AnimationType.SCENE_TRANSFER, Runnable {
-            ScreenManager.setScreen(ScreenManager.Screens.GAME_SCREEN)
+            ScreenManager.setScreen(ScreenManager.Screens.MAIN_MENU_SCREEN)
         })
     }
 

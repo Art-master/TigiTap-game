@@ -11,6 +11,7 @@ import com.badlogic.gdx.utils.viewport.FillViewport
 import com.badlogic.gdx.utils.viewport.FitViewport
 import com.run.cookie.run.game.services.AdsController
 import com.tapcon.game.Config
+import com.tapcon.game.Prefs
 import com.tapcon.game.api.Animated
 import com.tapcon.game.api.AnimationType
 import com.tapcon.game.managers.ScreenManager
@@ -21,10 +22,11 @@ abstract class GameScreen(params: Map<ScreenManager.Param, Any>) : Screen, Anima
     val manager = params[ASSET_MANAGER] as AssetManager
     val adsController = params[SERVICES_CONTROLLER] as AdsController
 
-    val camera = OrthographicCamera(Config.WIDTH_GAME, Config.HEIGHT_GAME)
+    private val camera = OrthographicCamera(Config.WIDTH_GAME, Config.HEIGHT_GAME)
     var stageBackground = Stage(ExtendViewport(Gdx.graphics.width.toFloat(), Gdx.graphics.height.toFloat(), camera))
     var stage = Stage(FitViewport(Config.WIDTH_GAME, Config.HEIGHT_GAME, camera))
 
+    val prefs = Gdx.app.getPreferences(Prefs.NAME)!!
 
     fun applyStages(delta: Float) {
         stageBackground.viewport.apply()

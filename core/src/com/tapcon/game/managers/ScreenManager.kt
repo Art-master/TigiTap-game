@@ -27,7 +27,6 @@ object ScreenManager {
             Screens.MAIN_MENU_SCREEN -> MainMenuScreen(allParams)
             Screens.GAME_SCREEN -> GamePlayScreen(allParams)
             Screens.GAME_OVER-> GameOverScreen(allParams)
-            else -> null
         }
         game?.screen = nextScreen
         currentScreen?.dispose()
