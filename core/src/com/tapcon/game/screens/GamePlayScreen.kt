@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.tapcon.game.Config
 import com.tapcon.game.actors.Background
 import com.tapcon.game.actors.game_play.*
+import com.tapcon.game.api.AnimationType
 import com.tapcon.game.data.Assets
 import com.tapcon.game.data.Descriptors
 import com.tapcon.game.managers.AudioManager
@@ -37,7 +38,7 @@ class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
 
     private var score = 0
 
-    private val iconsActors = Array(rowCount * collCount) { CellIcon(manager) }
+    private val iconsActors = Array(rowCount * collCount) { CellIcon(manager, scoreActor) }
 
     private val activeMap = HashMap<Int, CellIcon>(iconsRegions.size)
 
@@ -83,19 +84,27 @@ class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
             addClickListener(element) {
                 if (element.isActive().not()) return@addClickListener false
                 if (numIconsOnScene < iconsActors.size) numIconsOnScene += 1
+
                 if (element.isMain) {
-                    reInitActors()
-                    setMainIcon()
-                    scoreActor.score = ++score
-                    timer.increaseTimer()
+                    animateMainActorAndReInit(element)
                 } else {
                     if (score > 0) scoreActor.score = --score
                     timer.decreaseTimer()
+                    element.animate(AnimationType.PULSE)
                 }
                 return@addClickListener true
             }
             iconsGroup.addActor(element)
         }
+    }
+
+    private fun animateMainActorAndReInit(element: CellIcon) {
+        element.animate(AnimationType.SCORE_INCREASE, Runnable {
+            scoreActor.score = ++score
+            timer.increaseTimer()
+            reInitActors()
+            setMainIcon()
+        })
     }
 
     private fun setMainIcon(value: Int = -1) {
@@ -109,7 +118,7 @@ class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
 
     private fun reInitActors() {
         activeMap.clear()
-        iconsActors.forEach { element, _ -> element.clearInfo() }
+        iconsActors.forEach { element, _ -> element.resetAll() }
         for (num in 1..numIconsOnScene) {
             setNewActiveIcon()
         }

@@ -11,6 +11,11 @@ import com.tapcon.game.data.Descriptors
 class Score(manager: AssetManager, var score: Int = 0) : GameActor(), Animated {
     private val font = manager.get(Descriptors.scoreFont)
 
+    init {
+        x = Config.WIDTH_GAME - 200
+        y = Config.HEIGHT_GAME - 100
+    }
+
 
     override fun draw(batch: Batch?, parentAlpha: Float) {
         color.a = parentAlpha
@@ -21,12 +26,11 @@ class Score(manager: AssetManager, var score: Int = 0) : GameActor(), Animated {
 
     private fun drawBorder(batch: Batch) {
         font.color = color
-        //font.draw(batch, text, x, y)
     }
 
     private fun drawNumber(batch: Batch) {
         font.color = color
-        font.draw(batch, score.toString(), Config.WIDTH_GAME - 200, Config.HEIGHT_GAME - 100)
+        font.draw(batch, score.toString(), x, y)
     }
 
     override fun animate(type: AnimationType, runAfter: Runnable) {
