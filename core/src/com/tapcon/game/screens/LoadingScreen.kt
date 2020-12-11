@@ -17,7 +17,6 @@ import com.tapcon.game.Prefs
 import com.tapcon.game.actors.Background
 import com.tapcon.game.actors.loading_progress.LoadingText
 import com.tapcon.game.actors.loading_progress.ProgressBar
-import com.tapcon.game.api.AnimationType
 import com.tapcon.game.data.Descriptors
 import com.tapcon.game.managers.AudioManager
 import com.tapcon.game.managers.ScreenManager
@@ -82,9 +81,7 @@ class LoadingScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params) 
         setTexturesFilters(manager.get(Descriptors.icons))
         setTexturesFilters(manager.get(Descriptors.gameInterface))
 
-        animate(AnimationType.SCENE_TRANSFER, Runnable {
-            ScreenManager.setScreen(ScreenManager.Screens.MAIN_MENU_SCREEN)
-        })
+        ScreenManager.setScreen(ScreenManager.Screens.MAIN_MENU_SCREEN)
     }
 
     private fun setTexturesFilters(data: Disposable) {

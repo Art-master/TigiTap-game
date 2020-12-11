@@ -2,6 +2,7 @@ package com.tapcon.game.actors.game_play
 
 import com.badlogic.gdx.assets.AssetManager
 import com.badlogic.gdx.graphics.g2d.Batch
+import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.tapcon.game.Config
 import com.tapcon.game.api.Animated
 import com.tapcon.game.api.AnimationType
@@ -34,6 +35,21 @@ class Score(manager: AssetManager, var score: Int = 0) : GameActor(), Animated {
     }
 
     override fun animate(type: AnimationType, runAfter: Runnable) {
+        val animDuration = 0.1f
 
+        val action = when (type) {
+            AnimationType.PULSE -> {
+                val color = color
+                setColor(color.r, color.g, color.b, 1f)
+                Actions.sequence(
+                        Actions.scaleTo(0.9f, 0.9f, animDuration),
+                        Actions.scaleTo(1f, 1f, animDuration))
+
+            }
+            else -> return
+        }
+        val run = Actions.run(runAfter)
+        val sequence = Actions.sequence(action, run)
+        addAction(sequence)
     }
 }

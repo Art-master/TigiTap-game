@@ -28,7 +28,7 @@ class CellIcon(manager: AssetManager, private val scoreActor: Actor) : GameActor
     }
 
     override fun draw(batch: Batch?, parentAlpha: Float) {
-        //color.a = parentAlpha
+        if (parentAlpha > 0) color.a = parentAlpha
         batch!!.color = color
 
         region?.let {
@@ -75,8 +75,8 @@ class CellIcon(manager: AssetManager, private val scoreActor: Actor) : GameActor
                 val color = color
                 setColor(color.r, color.g, color.b, 1f)
                 Actions.sequence(
-                        Actions.scaleTo(0.9f, 0.9f, animDuration),
-                        Actions.scaleTo(1f, 1f, animDuration))
+                        Actions.scaleTo(0.9f, 0.9f, 0.1f),
+                        Actions.scaleTo(1f, 1f, 0.1f))
 
             }
             AnimationType.SCORE_INCREASE -> {

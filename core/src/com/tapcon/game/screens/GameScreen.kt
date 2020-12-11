@@ -7,9 +7,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.utils.viewport.ExtendViewport
-import com.badlogic.gdx.utils.viewport.FillViewport
 import com.badlogic.gdx.utils.viewport.FitViewport
-import com.run.cookie.run.game.services.AdsController
+import com.tapcon.game.services.AdsController
 import com.tapcon.game.Config
 import com.tapcon.game.Prefs
 import com.tapcon.game.api.Animated
@@ -17,10 +16,12 @@ import com.tapcon.game.api.AnimationType
 import com.tapcon.game.managers.ScreenManager
 import com.tapcon.game.managers.ScreenManager.Param.ASSET_MANAGER
 import com.tapcon.game.managers.ScreenManager.Param.SERVICES_CONTROLLER
+import com.tapcon.game.services.ServicesController
 
 abstract class GameScreen(params: Map<ScreenManager.Param, Any>) : Screen, Animated {
     val manager = params[ASSET_MANAGER] as AssetManager
     val adsController = params[SERVICES_CONTROLLER] as AdsController
+    val servicesController = params[SERVICES_CONTROLLER] as ServicesController
 
     private val camera = OrthographicCamera(Config.WIDTH_GAME, Config.HEIGHT_GAME)
     var stageBackground = Stage(ExtendViewport(Gdx.graphics.width.toFloat(), Gdx.graphics.height.toFloat(), camera))

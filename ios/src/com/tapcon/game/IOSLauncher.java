@@ -2,7 +2,7 @@ package com.tapcon.game;
 
 import com.badlogic.gdx.backends.iosrobovm.IOSApplication;
 import com.badlogic.gdx.backends.iosrobovm.IOSApplicationConfiguration;
-import com.run.cookie.run.game.services.AdsController;
+import com.tapcon.game.services.AdsController;
 import com.tapcon.game.services.CallBack;
 import com.tapcon.game.services.ServicesController;
 

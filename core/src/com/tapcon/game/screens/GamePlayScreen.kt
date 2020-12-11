@@ -99,6 +99,8 @@ class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
     }
 
     private fun animateMainActorAndReInit(element: CellIcon) {
+        bracketLeft.animate(AnimationType.PULSE)
+        bracketRight.animate(AnimationType.PULSE)
         element.animate(AnimationType.SCORE_INCREASE, Runnable {
             scoreActor.score = ++score
             timer.increaseTimer()
@@ -187,6 +189,7 @@ class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
     private fun startControlGameOver() {
         timer.onTimerExpired {
             AudioManager.stopAll()
+            iconsActors.forEach { icon -> icon.clear() }
             ScreenManager.setScreen(ScreenManager.Screens.GAME_OVER,
                     Pair(ScreenManager.Param.SCORE, score))
         }

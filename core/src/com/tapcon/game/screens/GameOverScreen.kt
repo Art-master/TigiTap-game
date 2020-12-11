@@ -12,6 +12,7 @@ import com.tapcon.game.actors.Background
 import com.tapcon.game.actors.game_over.Button
 import com.tapcon.game.actors.game_over.GameOverTitle
 import com.tapcon.game.actors.game_over.Score
+import com.tapcon.game.api.Animated
 import com.tapcon.game.api.AnimationType
 import com.tapcon.game.data.Assets
 import com.tapcon.game.managers.AudioManager
@@ -45,8 +46,23 @@ class GameOverScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
         Gdx.input.inputProcessor = stage
 
         addListenersToButtons(replayButton) {
-            animate(AnimationType.SCENE_TRANSFER)
             ScreenManager.setScreen(ScreenManager.Screens.GAME_SCREEN)
+        }
+
+        addListenersToButtons(mainMenuButton) {
+            ScreenManager.setScreen(ScreenManager.Screens.MAIN_MENU_SCREEN)
+        }
+
+        addListenersToButtons(shareButton) {
+            servicesController.share(scoreNum)
+        }
+
+        addListenersToButtons(awardsButton) {
+            servicesController.showAllAchievements()
+        }
+
+        addListenersToButtons(scoresButton) {
+            servicesController.showLeaderboard()
         }
     }
 
@@ -62,6 +78,7 @@ class GameOverScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
     private fun addListenersToButtons(actor: Actor, function: () -> Unit) {
         actor.addListener(object : ClickListener() {
             override fun touchDown(event: InputEvent?, x: Float, y: Float, pointer: Int, button: Int): Boolean {
+                if (actor is Animated) actor.animate(AnimationType.PULSE)
                 function.invoke()
                 if (AudioManager.isSoundEnable) AudioManager.play(AudioManager.SoundApp.CLICK_SOUND)
                 if (VibrationManager.isVibrationEnable) VibrationManager.vibrate(CLICK)

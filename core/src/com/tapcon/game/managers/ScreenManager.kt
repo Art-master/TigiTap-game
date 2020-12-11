@@ -1,10 +1,8 @@
 package com.tapcon.game.managers
 
 import com.badlogic.gdx.Game
-import com.tapcon.game.screens.GameOverScreen
-import com.tapcon.game.screens.GamePlayScreen
-import com.tapcon.game.screens.LoadingScreen
-import com.tapcon.game.screens.MainMenuScreen
+import com.tapcon.game.api.AnimationType
+import com.tapcon.game.screens.*
 import java.util.*
 
 object ScreenManager {
@@ -26,10 +24,18 @@ object ScreenManager {
             Screens.LOADING_SCREEN -> LoadingScreen(allParams)
             Screens.MAIN_MENU_SCREEN -> MainMenuScreen(allParams)
             Screens.GAME_SCREEN -> GamePlayScreen(allParams)
-            Screens.GAME_OVER-> GameOverScreen(allParams)
+            Screens.GAME_OVER -> GameOverScreen(allParams)
         }
-        game?.screen = nextScreen
-        currentScreen?.dispose()
+        if (game?.screen != null && game?.screen is GameScreen) {
+            (game?.screen as GameScreen).animate(AnimationType.SCENE_TRANSFER, Runnable {
+                game?.screen = nextScreen
+                currentScreen?.dispose()
+            })
+        } else {
+            game?.screen = nextScreen
+            currentScreen?.dispose()
+        }
+
     }
 
     fun setScreen(screen: Screens = Screens.MAIN_MENU_SCREEN, vararg params: Pair<Param, Any>) {
