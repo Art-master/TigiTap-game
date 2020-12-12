@@ -34,6 +34,7 @@ class Assets {
             const val SHARE_ICON = "share"
             const val AWARDS_ICON = "awards"
             const val SCORES_ICON = "scores"
+            const val HAND = "hand"
         }
     }
 

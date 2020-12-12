@@ -28,7 +28,7 @@ class CellIcon(manager: AssetManager, private val scoreActor: Actor) : GameActor
     }
 
     override fun draw(batch: Batch?, parentAlpha: Float) {
-        if (parentAlpha > 0) color.a = parentAlpha
+        if (parentAlpha < 1) color.a = parentAlpha
         batch!!.color = color
 
         region?.let {
@@ -60,6 +60,14 @@ class CellIcon(manager: AssetManager, private val scoreActor: Actor) : GameActor
     }
 
     fun isActive() = region != null
+
+    fun setDarkerView(){
+        color.a = 0.3f
+    }
+
+    fun setNormalView(){
+        color.a = 1f
+    }
 
     override fun animate(type: AnimationType, runAfter: Runnable) {
         val animDuration = 0.3f

@@ -20,6 +20,9 @@ import kotlin.random.Random
 
 class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params) {
 
+    private var isFirstAppRunning = true //params[ScreenManager.Param.FIRST_APP_RUN] as Boolean
+    //TODO
+
     private val atlas = manager.get(Descriptors.icons)
     private val iconsRegions = atlas.findRegions(Assets.IconsAtlas.ICON)
 
@@ -28,6 +31,7 @@ class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
     private val headIcon = HeadIcon(manager)
     private val timer = GameTimer(manager)
     private val scoreActor = Score(manager)
+    private val helper = Helper(manager)
     private val iconsGroup = Group()
 
     private val rowCount = 3
@@ -57,6 +61,7 @@ class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
             addActor(headIcon)
             addActor(iconsGroup)
             addActor(scoreActor)
+            if (isFirstAppRunning) addActor(helper)
         }
 
         initIconsMatrix()
@@ -64,6 +69,7 @@ class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
 
         numMainIcon = setNewActiveIcon()// Test
         setMainIcon(numMainIcon)
+        helper.watchByActor(activeMap[numMainIcon])
 
         startControlGameOver()
 
@@ -81,20 +87,28 @@ class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
             } else x + element.width
 
             element.setPosition(x, y)
-            addClickListener(element) {
-                if (element.isActive().not()) return@addClickListener false
-                if (numIconsOnScene < iconsActors.size) numIconsOnScene += 1
+            addActorListener(element)
 
-                if (element.isMain) {
-                    animateMainActorAndReInit(element)
-                } else {
-                    if (score > 0) scoreActor.score = --score
-                    timer.decreaseTimer()
-                    element.animate(AnimationType.PULSE)
-                }
-                return@addClickListener true
+            if (isFirstAppRunning && element.isMain.not()) {
+                element.setDarkerView()
             }
             iconsGroup.addActor(element)
+        }
+    }
+
+    private fun addActorListener(actor: CellIcon) {
+        addClickListener(actor) {
+            if (actor.isActive().not()) return@addClickListener false
+            if (numIconsOnScene < iconsActors.size) numIconsOnScene += 1
+
+            if (actor.isMain) {
+                animateMainActorAndReInit(actor)
+            } else if (isFirstAppRunning.not()) {
+                if (score > 0) scoreActor.score = --score
+                timer.decreaseTimer()
+                actor.animate(AnimationType.PULSE)
+            } else return@addClickListener false
+            return@addClickListener true
         }
     }
 
@@ -106,6 +120,7 @@ class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
             timer.increaseTimer()
             reInitActors()
             setMainIcon()
+            helper.watchByActor(activeMap[numMainIcon])
         })
     }
 
@@ -115,14 +130,21 @@ class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
             activeMap.keys.elementAt(randomValue)
         } else value
         activeMap[numMainIcon]?.isMain = true
+        activeMap[numMainIcon]?.setNormalView()
         headIcon.setIconNumber(numMainIcon)
     }
 
     private fun reInitActors() {
         activeMap.clear()
         iconsActors.forEach { element, _ -> element.resetAll() }
+
         for (num in 1..numIconsOnScene) {
-            setNewActiveIcon()
+            val newActorNum = setNewActiveIcon()
+
+            val newActor = activeMap[newActorNum] ?: continue
+            if (isFirstAppRunning && newActor.isMain.not()) {
+                newActor.setDarkerView()
+            } else newActor.setNormalView()
         }
     }
 
@@ -132,7 +154,6 @@ class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
         val icon = iconsActors[actorNumber]
         activeMap[iconNumber] = icon
         icon.setIconByNumber(iconNumber)
-        if (numMainIcon == iconNumber) icon.isMain = true
         return iconNumber
     }
 

@@ -21,7 +21,7 @@ class GameTimer(manager: AssetManager) : GameActor(), Animated {
     private var progressStep = 20
     private var timePercent = 100
     private var timerPeriod = 100L
-    private var timerStep = 10
+    private var timerStep = 30
 
     private var onTimerExpired: (() -> Any)? = null
 
@@ -49,8 +49,8 @@ class GameTimer(manager: AssetManager) : GameActor(), Animated {
     override fun act(delta: Float) {
         super.act(delta)
 
-        if(isTimerCancel.get()){
-            onTimerExpired?.invoke()
+        if (isTimerCancel.get()) {
+            //onTimerExpired?.invoke()
             isTimerCancel.set(isTimerCancel.get().not())
         }
     }
@@ -64,7 +64,7 @@ class GameTimer(manager: AssetManager) : GameActor(), Animated {
     }
 
     override fun draw(batch: Batch?, parentAlpha: Float) {
-        color.a = parentAlpha
+        if (parentAlpha < 1) color.a = parentAlpha
         batch!!.color = color
 
         batch.draw(borderRegion, x, y, originX, originY, width, height, scaleX, scaleY, rotation)
@@ -72,7 +72,7 @@ class GameTimer(manager: AssetManager) : GameActor(), Animated {
         drawProgress(batch)
     }
 
-    private fun drawTimeIcon(batch: Batch){
+    private fun drawTimeIcon(batch: Batch) {
         val iconW = timeIcon.originalWidth.toFloat()
         val iconH = timeIcon.originalHeight.toFloat()
         batch.draw(timeIcon, x - iconW - 30, y, originX, originY, iconW, iconH, scaleX, scaleY, rotation)

@@ -19,7 +19,7 @@ class Bracket(manager: AssetManager) : GameActor(), Animated {
     }
 
     override fun draw(batch: Batch?, parentAlpha: Float) {
-        if(parentAlpha > 0) color.a = parentAlpha
+        if(parentAlpha < 1) color.a = parentAlpha
         batch!!.color = color
         batch.draw(bracket, x, y, originX, originY, width, height, scaleX, scaleY, rotation)
     }
