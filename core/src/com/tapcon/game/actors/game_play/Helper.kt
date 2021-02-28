@@ -26,23 +26,35 @@ class Helper(manager: AssetManager) : GameActor() {
         val actorX = actor.x + actor.parent.x
         val actorY = actor.y + actor.parent.y
 
-        if (actorX < width + 30) {
-            x = actorX + actor.width + width * 2
+        val x = if (actorX < width + 30) {
             scaleX = 1f
+            actorX + actor.width + width * 2
         } else {
-            x = actorX
             scaleX = -1f
+            actorX
         }
-        y = actorY - 30
-        startLoopAnimation()
+        val y = actorY - 30
+        if (action != null) {
+            startWatchAnimation(x, y, Runnable {
+                startLoopAnimation(x, y)
+            })
+        } else startLoopAnimation(x, y)
     }
 
-    private fun startLoopAnimation() {
+    private fun startLoopAnimation(x: Float, y: Float) {
         val animDuration = 0.5f
         action = Actions.repeat(FOREVER,
                 Actions.sequence(
                         Actions.moveBy(30f, 30f, animDuration),
                         Actions.moveTo(x, y, animDuration)))
+        addAction(action)
+    }
+
+    private fun startWatchAnimation(x: Float, y: Float, runnable: Runnable) {
+        val animDuration = 0.5f
+        action = Actions.sequence(
+                Actions.moveTo(x, y, animDuration),
+                Actions.run(runnable))
         addAction(action)
     }
 

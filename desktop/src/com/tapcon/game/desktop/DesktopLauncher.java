@@ -2,6 +2,7 @@ package com.tapcon.game.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import com.tapcon.game.services.AdsCallback;
 import com.tapcon.game.services.AdsController;
 import com.tapcon.game.services.CallBack;
 import com.tapcon.game.services.ServicesController;
@@ -9,7 +10,6 @@ import com.tapcon.game.Config;
 import com.tapcon.game.GdxGame;
 
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 public class DesktopLauncher {
     public static void main(String[] arg) {
@@ -40,7 +40,7 @@ public class DesktopLauncher {
         }
 
         @Override
-        public boolean isWifiConnected() {
+        public boolean isNetworkAvailable() {
             return false;
         }
 
@@ -60,17 +60,12 @@ public class DesktopLauncher {
         }
 
         @Override
-        public void showInterstitialAd(@Nullable Runnable then) {
-
-        }
-
-        @Override
-        public void showVideoAd(@Nullable Runnable then) {
-
-        }
-
-        @Override
         public void signIn() {
+
+        }
+
+        @Override
+        public void signInSilently() {
 
         }
 
@@ -106,6 +101,16 @@ public class DesktopLauncher {
 
         @Override
         public void share(int score) {
+
+        }
+
+        @Override
+        public void showInterstitialAd(@NotNull AdsCallback then) {
+
+        }
+
+        @Override
+        public void showVideoAd(@NotNull AdsCallback then) {
 
         }
     }

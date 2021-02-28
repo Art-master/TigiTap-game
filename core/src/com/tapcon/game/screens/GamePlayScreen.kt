@@ -69,7 +69,8 @@ class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
 
         numMainIcon = setNewActiveIcon()// Test
         setMainIcon(numMainIcon)
-        helper.watchByActor(activeMap[numMainIcon])
+
+        if (isFirstAppRunning) helper.watchByActor(activeMap[numMainIcon])
 
         startControlGameOver()
 
@@ -101,13 +102,20 @@ class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
             if (actor.isActive().not()) return@addClickListener false
             if (numIconsOnScene < iconsActors.size) numIconsOnScene += 1
 
-            if (actor.isMain) {
-                animateMainActorAndReInit(actor)
-            } else if (isFirstAppRunning.not()) {
-                if (score > 0) scoreActor.score = --score
-                timer.decreaseTimer()
-                actor.animate(AnimationType.PULSE)
-            } else return@addClickListener false
+            when {
+                actor.isMain -> {
+                    if (isFirstAppRunning && numIconsOnScene > Config.NUMBER_STEPS_FOR_HELPERS) {
+                        isFirstAppRunning = false
+                    }
+                    animateMainActorAndReInit(actor)
+                }
+                isFirstAppRunning.not() -> {
+                    if (score > 0) scoreActor.score = --score
+                    timer.decreaseTimer()
+                    actor.animate(AnimationType.PULSE)
+                }
+                else -> return@addClickListener false
+            }
             return@addClickListener true
         }
     }
@@ -120,7 +128,9 @@ class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
             timer.increaseTimer()
             reInitActors()
             setMainIcon()
-            helper.watchByActor(activeMap[numMainIcon])
+
+            if (isFirstAppRunning) helper.watchByActor(activeMap[numMainIcon])
+            else if (helper.isVisible) helper.isVisible = false
         })
     }
 

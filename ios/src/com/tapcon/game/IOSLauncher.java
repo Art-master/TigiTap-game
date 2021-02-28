@@ -2,12 +2,12 @@ package com.tapcon.game;
 
 import com.badlogic.gdx.backends.iosrobovm.IOSApplication;
 import com.badlogic.gdx.backends.iosrobovm.IOSApplicationConfiguration;
+import com.tapcon.game.services.AdsCallback;
 import com.tapcon.game.services.AdsController;
 import com.tapcon.game.services.CallBack;
 import com.tapcon.game.services.ServicesController;
 
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.robovm.apple.foundation.NSAutoreleasePool;
 import org.robovm.apple.uikit.UIApplication;
 
@@ -40,7 +40,7 @@ public class IOSLauncher extends IOSApplication.Delegate implements AdsControlle
     }
 
     @Override
-    public boolean isWifiConnected() {
+    public boolean isNetworkAvailable() {
         return false;
     }
 
@@ -59,18 +59,14 @@ public class IOSLauncher extends IOSApplication.Delegate implements AdsControlle
 
     }
 
-    @Override
-    public void showInterstitialAd(@Nullable Runnable then) {
-
-    }
-
-    @Override
-    public void showVideoAd(@Nullable Runnable then) {
-
-    }
 
     @Override
     public void signIn() {
+
+    }
+
+    @Override
+    public void signInSilently() {
 
     }
 
@@ -106,6 +102,16 @@ public class IOSLauncher extends IOSApplication.Delegate implements AdsControlle
 
     @Override
     public void share(int score) {
+
+    }
+
+    @Override
+    public void showInterstitialAd(@NotNull AdsCallback then) {
+
+    }
+
+    @Override
+    public void showVideoAd(@NotNull AdsCallback then) {
 
     }
 }
