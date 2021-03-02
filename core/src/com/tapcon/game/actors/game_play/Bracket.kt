@@ -24,7 +24,7 @@ class Bracket(manager: AssetManager) : GameActor(), Animated {
         batch.draw(bracket, x, y, originX, originY, width, height, scaleX, scaleY, rotation)
     }
 
-    override fun animate(type: AnimationType, runAfter: Runnable) {
+    override fun animate(type: AnimationType, runAfter: Runnable, duration: Float) {
         val animDuration = 0.1f
 
         val action = when (type) {

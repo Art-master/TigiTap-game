@@ -28,7 +28,7 @@ class Score(manager: AssetManager, private val text: String, var score: Int) : G
         font.draw(batch, score.toString(), x + 900, y)
     }
 
-    override fun animate(type: AnimationType, runAfter: Runnable) {
+    override fun animate(type: AnimationType, runAfter: Runnable, duration: Float) {
 
     }
 }

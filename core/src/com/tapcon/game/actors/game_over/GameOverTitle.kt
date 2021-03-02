@@ -52,7 +52,7 @@ class GameOverTitle(manager: AssetManager) : GameActor(), Animated {
         }
     }
 
-    override fun animate(type: AnimationType, runAfter: Runnable) {
+    override fun animate(type: AnimationType, runAfter: Runnable, duration: Float) {
         val period = 50L
         val delay = 100L
 

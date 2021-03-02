@@ -39,7 +39,7 @@ abstract class GameScreen(params: Map<ScreenManager.Param, Any>) : Screen, Anima
         stage.draw()
     }
 
-    override fun animate(type: AnimationType, runAfter: Runnable) {
+    override fun animate(type: AnimationType, runAfter: Runnable, duration: Float) {
         if (type == AnimationType.SCENE_TRANSFER)
             stage.addAction(
                     Actions.sequence(

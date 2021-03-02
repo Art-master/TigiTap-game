@@ -69,7 +69,7 @@ class CellIcon(manager: AssetManager, private val scoreActor: Actor) : GameActor
         color.a = 1f
     }
 
-    override fun animate(type: AnimationType, runAfter: Runnable) {
+    override fun animate(type: AnimationType, runAfter: Runnable, duration: Float) {
         val animDuration = 0.3f
 
         val action = when (type) {

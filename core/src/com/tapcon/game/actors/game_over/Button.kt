@@ -40,7 +40,7 @@ class Button(manager: AssetManager, assetName: String) : GameActor(), Animated {
         batch.draw(icon, x + iconPadX, y + iconPadY, originX, originY,  width, height, scaleX, scaleY, rotation)
     }
 
-    override fun animate(type: AnimationType, runAfter: Runnable) {
+    override fun animate(type: AnimationType, runAfter: Runnable, duration: Float) {
         val animDuration = 0.1f
 
         val action = when (type) {

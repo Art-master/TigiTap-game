@@ -30,7 +30,7 @@ object ScreenManager {
             (game?.screen as GameScreen).animate(AnimationType.SCENE_TRANSFER, Runnable {
                 game?.screen = nextScreen
                 currentScreen?.dispose()
-            })
+            }, 0f)
         } else {
             game?.screen = nextScreen
             currentScreen?.dispose()

@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.badlogic.gdx.utils.Align
 import com.tapcon.game.actors.Background
+import com.tapcon.game.actors.DigitalBlow
 import com.tapcon.game.actors.main_menu.GameName
 import com.tapcon.game.actors.main_menu.MenuButton
 import com.tapcon.game.actors.main_menu.PlayButton
@@ -27,10 +28,12 @@ class MainMenuScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
     private val soundButton = MenuButton(manager, SOUND_ICON, AudioManager.isSoundEnable)
     private val vibrationButton = MenuButton(manager, VIBRATION_ICON, VibrationManager.isVibrationEnable)
     private val gameName = GameName(manager)
+    private val digitalBlow = DigitalBlow(manager, playButton)
 
     init {
         stageBackground.addActor(Background(manager))
         buildLayout()
+        stage.addActor(digitalBlow)
 
         Gdx.input.inputProcessor = stage
 
@@ -44,8 +47,12 @@ class MainMenuScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
         addListenersToButtons(vibrationButton) { VibrationManager.switchVibrationSetting() }
 
         addListenersToButtons(playButton) {
-            animate(AnimationType.SCENE_TRANSFER)
-            ScreenManager.setScreen(ScreenManager.Screens.GAME_SCREEN)
+            digitalBlow.animate(AnimationType.BLOW, Runnable {
+                animate(AnimationType.SCENE_TRANSFER, Runnable {
+                    ScreenManager.setScreen(ScreenManager.Screens.GAME_SCREEN)
+                })
+            }, 0.5f)
+            playButton.animate(AnimationType.HIDE_FROM_SCENE)
         }
     }
 
@@ -65,13 +72,13 @@ class MainMenuScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
         val table = Table().apply {
             setFillParent(true)
             row().expand()
-            add(gameName).padBottom(100f).center().colspan(30)
-            row().expandX().padBottom(30f)
+            add(gameName).center().colspan(30)
+            row().expandX()
             add(playButton).padBottom(100f).center().colspan(30)
-            row().expandX().padBottom(30f)
-            add(musicButton).padLeft(50f).align(Align.left)
+            row().expandX().padBottom(100f)
+            add(musicButton).padLeft(100f).align(Align.left)
             add(soundButton).padLeft(50f).align(Align.left).colspan(20)
-            add(vibrationButton).padRight(30f).align(Align.right)
+            add(vibrationButton).padRight(100f).align(Align.right)
             align(Align.center)
         }
         stage.addActor(table)

@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.tapcon.game.Config
 import com.tapcon.game.actors.Background
+import com.tapcon.game.actors.DigitalBlow
 import com.tapcon.game.actors.game_play.*
 import com.tapcon.game.api.AnimationType
 import com.tapcon.game.data.Assets
@@ -33,6 +34,8 @@ class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
     private val scoreActor = Score(manager)
     private val helper = Helper(manager)
     private val iconsGroup = Group()
+
+    private val digitalBlow = DigitalBlow(manager, scoreActor)
 
     private val rowCount = 3
     private val collCount = 7
@@ -60,6 +63,7 @@ class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
             addActor(timer)
             addActor(headIcon)
             addActor(iconsGroup)
+            addActor(digitalBlow)
             addActor(scoreActor)
             if (isFirstAppRunning) addActor(helper)
         }
@@ -132,6 +136,9 @@ class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
             if (isFirstAppRunning) helper.watchByActor(activeMap[numMainIcon])
             else if (helper.isVisible) helper.isVisible = false
         })
+
+        digitalBlow.target = scoreActor
+        digitalBlow.animate(AnimationType.BLOW, duration = 0.5f)
     }
 
     private fun setMainIcon(value: Int = -1) {

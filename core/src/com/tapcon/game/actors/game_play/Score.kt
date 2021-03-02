@@ -34,7 +34,7 @@ class Score(manager: AssetManager, var score: Int = 0) : GameActor(), Animated {
         font.draw(batch, score.toString(), x, y)
     }
 
-    override fun animate(type: AnimationType, runAfter: Runnable) {
+    override fun animate(type: AnimationType, runAfter: Runnable, duration: Float) {
         val animDuration = 0.1f
 
         val action = when (type) {

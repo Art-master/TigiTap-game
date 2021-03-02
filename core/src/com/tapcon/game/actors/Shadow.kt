@@ -35,7 +35,7 @@ class Shadow(val manager: AssetManager) : GameActor(), Animated {
         batch.setColor(color.r, color.g, color.b, 1f)
     }
 
-    override fun animate(type: AnimationType, runAfter: Runnable) {
+    override fun animate(type: AnimationType, runAfter: Runnable, duration: Float) {
         val animDuration = SHADOW_ANIMATION_TIME_S
         val action = when (type) {
             AnimationType.HIDE_FROM_SCENE -> Actions.alpha(1f, animDuration)

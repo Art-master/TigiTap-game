@@ -92,7 +92,7 @@ class GameTimer(manager: AssetManager) : GameActor(), Animated {
         onTimerExpired = func
     }
 
-    override fun animate(type: AnimationType, runAfter: Runnable) {
+    override fun animate(type: AnimationType, runAfter: Runnable, duration: Float) {
         val animDuration = 0.5f
         val action = when (type) {
             AnimationType.HIDE_FROM_SCENE -> Actions.alpha(0f, animDuration)

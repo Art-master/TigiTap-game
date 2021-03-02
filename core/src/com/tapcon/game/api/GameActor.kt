@@ -13,20 +13,26 @@ open class GameActor : Actor() {
     val tailY: Float
         get() = y + height
 
-    var isVibrating = false
-    set(value) {
-        field = value
-        if(value){
-            addListener(vibrationListener)
-        }else{
-            removeListener(vibrationListener)
-        }
-    }
+    val centerX: Float
+        get() = x + (width / 2)
 
-    private val vibrationListener = object: ClickListener(){
+    val centerY: Float
+        get() = y + (height / 2)
+
+    var isVibrating = false
+        set(value) {
+            field = value
+            if (value) {
+                addListener(vibrationListener)
+            } else {
+                removeListener(vibrationListener)
+            }
+        }
+
+    private val vibrationListener = object : ClickListener() {
         override fun clicked(event: InputEvent?, x: Float, y: Float) {
             super.clicked(event, x, y)
-            if(isVibrating){
+            if (isVibrating) {
                 VibrationManager.vibrate()
             }
         }
