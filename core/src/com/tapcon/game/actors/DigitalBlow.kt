@@ -16,34 +16,31 @@ class DigitalBlow(manager: AssetManager, var target: GameActor) : GameActor(), A
     private val font = manager.get(Descriptors.scoreFont)
     private val particles: Array<Particle> = Array()
 
+    var particlesCount = 100
+    var sideSize = 1000
+
+    var revert = false
+
     init {
         x = Config.WIDTH_GAME - 200
         y = Config.HEIGHT_GAME - 100
     }
 
     private fun generateDigitalBlow() {
-        val width = 1000
-        val height = 1000
-        val minimalCount = 5
-        val maximalCount = 100
-
-        val numOfUnits = Random.nextInt(minimalCount, maximalCount)
-        val numOfZeros = Random.nextInt(minimalCount, maximalCount)
         val centerX = target.centerX.toInt()
         val centerY = target.centerY.toInt()
 
-        for (unitNum in minimalCount..numOfUnits) {
-            val randomX = Random.nextInt(-(centerX - width / 2), centerX + width / 2)
-            val randomY = Random.nextInt(-(centerY - height / 2), centerY + height / 2)
+        for (unitNum in 0..particlesCount) {
+            val randomX = Random.nextInt(-(centerX - sideSize / 2), centerX + sideSize / 2)
+            val randomY = Random.nextInt(-(centerY - sideSize / 2), centerY + sideSize / 2)
             val velocity = Vector2(randomX.toFloat(), randomY.toFloat())
-            particles.add(Particle(centerX.toFloat(), centerY.toFloat(), "1", velocity))
-        }
-
-        for (unitNum in minimalCount..numOfZeros) {
-            val randomX = Random.nextInt(-(centerX - width / 2), centerX + width / 2)
-            val randomY = Random.nextInt(-(centerY - height / 2), centerY + height / 2)
-            val velocity = Vector2(randomX.toFloat(), randomY.toFloat())
-            particles.add(Particle(centerX.toFloat(), centerY.toFloat(), "0", velocity))
+            val text = if (unitNum % 2 == 0) "1" else "0"
+            val particle = Particle(centerX.toFloat(), centerY.toFloat(), text, velocity)
+            if (revert) {
+                particle.x = randomX.toFloat()
+                particle.y = randomY.toFloat()
+            }
+            particles.add(particle)
         }
     }
 
@@ -58,13 +55,18 @@ class DigitalBlow(manager: AssetManager, var target: GameActor) : GameActor(), A
 
     private fun updateParticles(delta: Float) {
         particles.forEach {
-            it.x += it.velocity.x * delta
-            it.y += it.velocity.y * delta
+            if (revert) {
+                if (it.x > target.x) it.x -= it.velocity.x * delta
+                if (it.y > target.y) it.y -= it.velocity.y * delta
+            } else {
+                it.x += it.velocity.x * delta
+                it.y += it.velocity.y * delta
+            }
         }
     }
 
     override fun draw(batch: Batch?, parentAlpha: Float) {
-        color.a = if(parentAlpha < 1f) parentAlpha else color.a
+        color.a = if (parentAlpha < 1f) parentAlpha else color.a
         batch!!.color = color
         drawBlow(batch)
     }
@@ -84,9 +86,12 @@ class DigitalBlow(manager: AssetManager, var target: GameActor) : GameActor(), A
                 generateDigitalBlow()
 
                 val color = color
-                setColor(color.r, color.g, color.b, 0.6f)
+                val alphaFrom = if (revert) 0f else 0.6f
+                val alphaTo = if (revert) 0.3f else 0f
+
+                setColor(color.r, color.g, color.b, alphaFrom)
                 Actions.sequence(
-                        Actions.alpha(0f, duration),
+                        Actions.alpha(alphaTo, duration),
                         Actions.run {
                             particles.clear()
                         }

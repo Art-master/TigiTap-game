@@ -117,6 +117,9 @@ class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
                     if (score > 0) scoreActor.score = --score
                     timer.decreaseTimer()
                     actor.animate(AnimationType.PULSE)
+
+                    digitalBlow.revert = true
+                    digitalBlow.animate(AnimationType.BLOW, duration = 0.5f)
                 }
                 else -> return@addClickListener false
             }
@@ -137,7 +140,7 @@ class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
             else if (helper.isVisible) helper.isVisible = false
         })
 
-        digitalBlow.target = scoreActor
+        digitalBlow.revert = false
         digitalBlow.animate(AnimationType.BLOW, duration = 0.5f)
     }
 
