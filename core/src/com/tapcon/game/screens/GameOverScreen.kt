@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.badlogic.gdx.utils.Align
 import com.tapcon.game.Prefs
 import com.tapcon.game.actors.Background
+import com.tapcon.game.actors.DigitalMatrix
 import com.tapcon.game.actors.game_over.Button
 import com.tapcon.game.actors.game_over.GameOverTitle
 import com.tapcon.game.actors.game_over.Score
@@ -28,6 +29,7 @@ class GameOverScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
     private val awardsButton = Button(manager, Assets.InterfaceAtlas.AWARDS_ICON)
     private val scoresButton = Button(manager, Assets.InterfaceAtlas.SCORES_ICON)
     private val gameOverTitle = GameOverTitle(manager)
+    private val digitalMatrix = DigitalMatrix(manager)
 
     private val scoreNum = params[ScreenManager.Param.SCORE] as Int
     private var bestScoreNum: Int = 0
@@ -37,6 +39,8 @@ class GameOverScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
 
     init {
         stageBackground.addActor(Background(manager))
+        stage.addActor(digitalMatrix)
+        digitalMatrix.animate()
 
         initScoreNum()
 

@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.badlogic.gdx.utils.Align
 import com.tapcon.game.actors.Background
 import com.tapcon.game.actors.DigitalBlow
+import com.tapcon.game.actors.DigitalMatrix
 import com.tapcon.game.actors.main_menu.GameName
 import com.tapcon.game.actors.main_menu.MenuButton
 import com.tapcon.game.actors.main_menu.PlayButton
@@ -29,11 +30,14 @@ class MainMenuScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
     private val vibrationButton = MenuButton(manager, VIBRATION_ICON, VibrationManager.isVibrationEnable)
     private val gameName = GameName(manager)
     private val digitalBlow = DigitalBlow(manager, playButton)
+    private val digitalMatrix = DigitalMatrix(manager)
 
     init {
         stageBackground.addActor(Background(manager))
+        stage.addActor(digitalMatrix)
         buildLayout()
         stage.addActor(digitalBlow)
+        digitalMatrix.animate()
 
         Gdx.input.inputProcessor = stage
 

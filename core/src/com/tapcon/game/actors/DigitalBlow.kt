@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.utils.Array
-import com.tapcon.game.Config
 import com.tapcon.game.api.Animated
 import com.tapcon.game.api.AnimationType
 import com.tapcon.game.api.GameActor
@@ -20,11 +19,6 @@ class DigitalBlow(manager: AssetManager, var target: GameActor) : GameActor(), A
     var sideSize = 1000
 
     var revert = false
-
-    init {
-        x = Config.WIDTH_GAME - 200
-        y = Config.HEIGHT_GAME - 100
-    }
 
     private fun generateDigitalBlow() {
         val centerX = target.centerX.toInt()
