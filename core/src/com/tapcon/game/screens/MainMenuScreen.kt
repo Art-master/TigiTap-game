@@ -46,11 +46,14 @@ class MainMenuScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
 
         addListenersToButtons(vibrationButton) { VibrationManager.switchVibrationSetting() }
 
+        var isPlayButtonPressed = false
+
         addListenersToButtons(playButton) {
+            if (isPlayButtonPressed) return@addListenersToButtons
+            isPlayButtonPressed = true
+
             digitalBlow.animate(AnimationType.BLOW, Runnable {
-                animate(AnimationType.SCENE_TRANSFER, Runnable {
-                    ScreenManager.setScreen(ScreenManager.Screens.GAME_SCREEN)
-                })
+                ScreenManager.setScreen(ScreenManager.Screens.GAME_SCREEN)
             }, 0.5f)
             playButton.animate(AnimationType.HIDE_FROM_SCENE)
         }

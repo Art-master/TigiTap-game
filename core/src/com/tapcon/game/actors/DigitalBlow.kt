@@ -87,7 +87,7 @@ class DigitalBlow(manager: AssetManager, var target: GameActor) : GameActor(), A
 
                 val color = color
                 val alphaFrom = if (revert) 0f else 0.6f
-                val alphaTo = if (revert) 0.3f else 0f
+                val alphaTo = if (revert) 0.1f else 0f
 
                 setColor(color.r, color.g, color.b, alphaFrom)
                 Actions.sequence(

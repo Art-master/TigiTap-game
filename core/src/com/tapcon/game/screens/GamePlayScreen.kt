@@ -33,7 +33,7 @@ class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
     private val timer = GameTimer(manager)
     private val scoreActor = Score(manager)
     private val helper = Helper(manager)
-    private val iconsGroup = Group()
+    private val iconsGroup = CellsGroup()
 
     private val digitalBlow = DigitalBlow(manager, scoreActor)
 
@@ -49,7 +49,7 @@ class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
 
     private val activeMap = HashMap<Int, CellIcon>(iconsRegions.size)
 
-    private inline fun <T> Array<out T>.forEach(action: (T, Int) -> Unit): Unit {
+    private inline fun <T> Array<out T>.forEach(action: (T, Int) -> Unit) {
         for ((index, element) in this.withIndex()) action(element, index)
     }
 
@@ -120,6 +120,7 @@ class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
 
                     digitalBlow.revert = true
                     digitalBlow.animate(AnimationType.BLOW, duration = 0.5f)
+                    iconsGroup.animate(AnimationType.PULSE, duration = 0.2f)
                 }
                 else -> return@addClickListener false
             }
