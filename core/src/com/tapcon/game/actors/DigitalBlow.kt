@@ -12,7 +12,7 @@ import com.tapcon.game.data.Descriptors
 import kotlin.random.Random
 
 class DigitalBlow(manager: AssetManager, var target: GameActor) : GameActor(), Animated {
-    private val font = manager.get(Descriptors.scoreFont)
+    private val font = manager.get(Descriptors.juraFont)
     private val particles: Array<Particle> = Array()
 
     var particlesCount = 100

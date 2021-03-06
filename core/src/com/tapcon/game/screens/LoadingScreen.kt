@@ -76,20 +76,10 @@ class LoadingScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params) 
     }
 
     private fun loadResourcesFinished() {
-        adsController.hideBannerAd()
-        setTexturesFilters(manager.get(Descriptors.background))
-        setTexturesFilters(manager.get(Descriptors.icons))
-        setTexturesFilters(manager.get(Descriptors.gameInterface))
+        AudioManager.onMusicsLoaded(manager)
+        AudioManager.onSoundsLoaded(manager)
 
         ScreenManager.setScreen(ScreenManager.Screens.MAIN_MENU_SCREEN)
-    }
-
-    private fun setTexturesFilters(data: Disposable) {
-        if (data is Texture) {
-            data.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear)
-        } else if (data is TextureAtlas) {
-            data.textures.forEach { it.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear) }
-        }
     }
 
     private fun initProgressBarActors() {
