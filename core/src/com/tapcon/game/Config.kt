@@ -10,7 +10,9 @@ object Config {
     enum class Debug(var state: Boolean, var info: Any = 0) {
         COLLISIONS(false),
         PLAY_SERVICES(false),
-        ADS(false)
+        ADS(false),
+        ALWAYS_SHOW_HELPER(false),
+        DENY_GAME_OVER(false)
     }
 
     enum class Achievement(val score: Int) {

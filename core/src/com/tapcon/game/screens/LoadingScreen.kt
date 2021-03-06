@@ -3,15 +3,12 @@ package com.tapcon.game.screens
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.assets.loaders.FileHandleResolver
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver
-import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.BitmapFont
-import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGeneratorLoader
 import com.badlogic.gdx.graphics.g2d.freetype.FreetypeFontLoader
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.utils.Align
-import com.badlogic.gdx.utils.Disposable
 import com.badlogic.gdx.utils.Timer
 import com.tapcon.game.Prefs
 import com.tapcon.game.actors.Background
@@ -124,7 +121,6 @@ class LoadingScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params) 
     }
 
     override fun dispose() {
-        //manager.unload(Assets.ProgressAtlas.NAME)
         stage.dispose()
     }
 }

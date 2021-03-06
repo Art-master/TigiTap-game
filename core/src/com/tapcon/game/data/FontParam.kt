@@ -34,7 +34,7 @@ enum class FontParam(val fontName: String, private val apply: FreetypeFontLoader
             shadowOffsetY = 1
             shadowColor = Color.valueOf("b5edf6")
             spaceX = 15
-            size = 100
+            size = 150
         }
     });
 

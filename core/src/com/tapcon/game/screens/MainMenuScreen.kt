@@ -29,14 +29,12 @@ class MainMenuScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
     private val soundButton = MenuButton(manager, SOUND_ICON, AudioManager.isSoundEnable)
     private val vibrationButton = MenuButton(manager, VIBRATION_ICON, VibrationManager.isVibrationEnable)
     private val gameName = GameName(manager)
-    private val digitalBlow = DigitalBlow(manager, playButton)
     private val digitalMatrix = DigitalMatrix(manager)
 
     init {
         stageBackground.addActor(Background(manager))
         stage.addActor(digitalMatrix)
         buildLayout()
-        stage.addActor(digitalBlow)
         digitalMatrix.animate()
 
         Gdx.input.inputProcessor = stage
@@ -56,10 +54,10 @@ class MainMenuScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
             if (isPlayButtonPressed) return@addListenersToButtons
             isPlayButtonPressed = true
 
-            digitalBlow.animate(AnimationType.BLOW, Runnable {
+
+            playButton.animate(AnimationType.HIDE_FROM_SCENE, Runnable {
                 ScreenManager.setScreen(ScreenManager.Screens.GAME_SCREEN)
-            }, 0.5f)
-            playButton.animate(AnimationType.HIDE_FROM_SCENE)
+            })
         }
     }
 
@@ -100,7 +98,7 @@ class MainMenuScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
     }
 
     override fun render(delta: Float) {
-        //Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
         val bufferBitMv = if (Gdx.graphics.bufferFormat.coverageSampling) GL20.GL_COVERAGE_BUFFER_BIT_NV else 0
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT or GL20.GL_DEPTH_BUFFER_BIT or bufferBitMv)
         applyStages(delta)

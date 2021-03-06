@@ -110,7 +110,7 @@ class GameOverScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
             padLeft(400f)
             row()
             add(bestScore)
-            row().padTop(100f)
+            row().padTop(150f)
             add(lastScore)
             align(Align.left)
         }

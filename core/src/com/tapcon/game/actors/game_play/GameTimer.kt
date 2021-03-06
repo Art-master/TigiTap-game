@@ -3,6 +3,7 @@ package com.tapcon.game.actors.game_play
 import com.badlogic.gdx.assets.AssetManager
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
+import com.tapcon.game.Config
 import com.tapcon.game.api.Animated
 import com.tapcon.game.api.AnimationType
 import com.tapcon.game.api.GameActor
@@ -32,11 +33,9 @@ class GameTimer(manager: AssetManager) : GameActor(), Animated {
     init {
         width = borderRegion.originalWidth.toFloat()
         height = borderRegion.originalHeight.toFloat()
-
-        setTimer()
     }
 
-    private fun setTimer() {
+    fun start() {
         timer.scheduleAtFixedRate(0L, timerPeriod) {
             if (timePercent > 0) timePercent--
             else {
@@ -50,7 +49,7 @@ class GameTimer(manager: AssetManager) : GameActor(), Animated {
         super.act(delta)
 
         if (isTimerCancel.get()) {
-            //onTimerExpired?.invoke()
+            if (Config.Debug.DENY_GAME_OVER.state.not()) onTimerExpired?.invoke()
             isTimerCancel.set(isTimerCancel.get().not())
         }
     }

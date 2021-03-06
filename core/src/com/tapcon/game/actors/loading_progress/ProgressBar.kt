@@ -26,8 +26,8 @@ class ProgressBar(manager: AssetManager) : GameActor() {
         batch.draw(progressSquare, x, y, width, height)
 
         font.color = color
-        font.draw(batch, "[", x, y)
-        font.draw(batch, "]", x + progressWidth, y)
+        font.draw(batch, "[", x, y + 8)
+        font.draw(batch, "]", x + progressWidth - 10, y + 8)
         font.draw(batch, "=", x + progressWidth + 30, y)
         font.draw(batch, "$progress%", x + progressWidth + 80, y)
         drawProgress(batch)

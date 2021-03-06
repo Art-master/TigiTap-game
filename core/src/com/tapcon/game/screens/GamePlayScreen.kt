@@ -8,7 +8,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.tapcon.game.Config
 import com.tapcon.game.actors.Background
 import com.tapcon.game.actors.DigitalBlow
-import com.tapcon.game.actors.DigitalMatrix
 import com.tapcon.game.actors.game_play.*
 import com.tapcon.game.api.AnimationType
 import com.tapcon.game.data.Assets
@@ -21,8 +20,7 @@ import kotlin.random.Random
 
 class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params) {
 
-    private var isFirstAppRunning = true //params[ScreenManager.Param.FIRST_APP_RUN] as Boolean
-    //TODO
+    private var isFirstAppRunning = params[ScreenManager.Param.FIRST_APP_RUN] as Boolean
 
     private val atlas = manager.get(Descriptors.icons)
     private val iconsRegions = atlas.findRegions(Assets.IconsAtlas.ICON)
@@ -56,6 +54,7 @@ class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
     init {
         stageBackground.addActor(Background(manager))
         initActorsPositions()
+        if(Config.Debug.ALWAYS_SHOW_HELPER.state) isFirstAppRunning = true
 
         stage.apply {
             addActor(bracketLeft)
@@ -65,7 +64,7 @@ class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
             addActor(iconsGroup)
             addActor(digitalBlow)
             addActor(scoreActor)
-            if (isFirstAppRunning) addActor(helper)
+            addActor(helper)
         }
 
         initIconsMatrix()
@@ -74,7 +73,7 @@ class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
         numMainIcon = setNewActiveIcon()// Test
         setMainIcon(numMainIcon)
 
-        if (isFirstAppRunning) helper.watchByActor(activeMap[numMainIcon])
+        helper.watchByActor(activeMap[numMainIcon])
 
         startControlGameOver()
 
@@ -108,9 +107,13 @@ class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
 
             when {
                 actor.isMain -> {
+
                     if (isFirstAppRunning && numIconsOnScene > Config.NUMBER_STEPS_FOR_HELPERS) {
                         isFirstAppRunning = false
+                    } else if(isFirstAppRunning.not() && numIconsOnScene == 2) {
+                        isFirstAppRunning = false
                     }
+
                     animateMainActorAndReInit(actor)
                 }
                 isFirstAppRunning.not() -> {
@@ -138,7 +141,10 @@ class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
             setMainIcon()
 
             if (isFirstAppRunning) helper.watchByActor(activeMap[numMainIcon])
-            else if (helper.isVisible) helper.isVisible = false
+            else if (helper.isVisible) {
+                helper.isVisible = false
+                timer.start()
+            }
         })
 
         digitalBlow.revert = false
