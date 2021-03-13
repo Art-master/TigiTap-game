@@ -236,6 +236,7 @@ class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
 
     private fun startControlGameOver() {
         timer.onTimerExpired {
+            digitalBlow.remove()
             AudioManager.stopAll()
             iconsActors.forEach { icon -> icon.clear() }
             ScreenManager.setScreen(ScreenManager.Screens.GAME_OVER,
@@ -252,7 +253,7 @@ class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
     }
 
     override fun render(delta: Float) {
-        //Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
         val bufferBitMv = if (Gdx.graphics.bufferFormat.coverageSampling) GL20.GL_COVERAGE_BUFFER_BIT_NV else 0
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT or GL20.GL_DEPTH_BUFFER_BIT or bufferBitMv)
         applyStages(delta)

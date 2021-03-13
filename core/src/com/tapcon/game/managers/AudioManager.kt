@@ -152,4 +152,14 @@ object AudioManager {
             sound.resource = manager.get(sound.descriptor)
         }
     }
+
+    fun disposeAll(){
+        for (music in MusicApp.values()) {
+            music.resource?.dispose()
+        }
+        for (sound in SoundApp.values()) {
+            sound.resource?.dispose()
+        }
+
+    }
 }

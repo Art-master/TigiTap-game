@@ -45,8 +45,8 @@ abstract class GameScreen(params: Map<ScreenManager.Param, Any>) : Screen, Anima
                     Actions.sequence(
                             Actions.repeat(3, Actions.sequence(
                                     Actions.alpha(1f, 0.00f),
-                                    Actions.alpha(0f, 0.3f),
-                                    Actions.delay(0.3f))),
+                                    Actions.alpha(0f, 0.2f),
+                                    Actions.delay(0.2f))),
                             Actions.run(runAfter)))
     }
 

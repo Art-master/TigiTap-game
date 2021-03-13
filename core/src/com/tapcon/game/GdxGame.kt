@@ -2,8 +2,10 @@ package com.tapcon.game
 
 import com.badlogic.gdx.Game
 import com.badlogic.gdx.assets.AssetManager
+import com.tapcon.game.managers.AudioManager
 import com.tapcon.game.services.ServicesController
 import com.tapcon.game.managers.ScreenManager
+import com.tapcon.game.managers.VibrationManager
 
 class GdxGame(private val controller: ServicesController) : Game() {
 
@@ -21,5 +23,8 @@ class GdxGame(private val controller: ServicesController) : Game() {
         super.render()
     }
 
-    override fun dispose() {}
+    override fun dispose() {
+        AudioManager.disposeAll()
+        VibrationManager.cancel()
+    }
 }
