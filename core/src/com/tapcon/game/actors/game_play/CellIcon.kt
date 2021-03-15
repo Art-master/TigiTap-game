@@ -16,11 +16,13 @@ class CellIcon(manager: AssetManager, private val scoreActor: Actor) : GameActor
     private val atlas = manager.get(Descriptors.gameInterface)
     private val borderRegion = atlas.findRegion(Assets.InterfaceAtlas.CELL)
     private val regions = manager.get(Descriptors.icons).findRegions(Assets.IconsAtlas.ICON)
-    private var region: TextureAtlas.AtlasRegion? = null
+    var region: TextureAtlas.AtlasRegion? = null
+    private set
 
     private var startPosition: Vector2 = Vector2()
 
     var isMain = false
+    var index = -1
 
     init {
         width = borderRegion.originalWidth.toFloat()

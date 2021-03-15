@@ -2,29 +2,84 @@ package com.tapcon.game.actors.game_play
 
 import com.badlogic.gdx.assets.AssetManager
 import com.badlogic.gdx.graphics.g2d.Batch
+import com.badlogic.gdx.graphics.g2d.TextureAtlas
+import com.tapcon.game.Config
 import com.tapcon.game.api.GameActor
 import com.tapcon.game.data.Assets
 import com.tapcon.game.data.Descriptors
 
-class HeadIcon(manager: AssetManager) : GameActor() {
+class HeadIcon(manager: AssetManager,
+               private val bracketLeft: Bracket,
+               private val bracketRight: Bracket) : GameActor() {
+
     private val atlas = manager.get(Descriptors.icons)
-    private val regions = atlas.findRegions(Assets.IconsAtlas.ICON)
-    private var region = regions.first()
+    private val allRegions = atlas.findRegions(Assets.IconsAtlas.ICON)
+    private val regionWidth = allRegions.first().regionWidth.toFloat()
+    private var regions = HashMap<Int, TextureAtlas.AtlasRegion>()
+    private var checkedIndexes = ArrayList<Int>()
+    private val padding = 100f
+
+    private fun changePositions() {
+        val width = (regionWidth * regions.size) + (regions.size * padding)
+
+        setSize(width, bracketLeft.height)
+
+        val headX = (Config.WIDTH_GAME - width) / 2
+        val headY = Config.HEIGHT_GAME - bracketLeft.height - 50f
+
+        bracketLeft.setPosition(headX - padding, headY)
+        setPosition(headX, headY)
+
+        bracketRight.scaleX = -1f
+        bracketRight.setPosition(tailX, headY)
+    }
 
     override fun draw(batch: Batch?, parentAlpha: Float) {
-        color.a = parentAlpha
-        batch!!.color = color
+        if (parentAlpha < 1) color.a = parentAlpha
 
-        region?.let {
-            val width = region.originalWidth.toFloat()
-            val height = region.originalHeight.toFloat()
-            val x = this.x + (this.width - width) / 2
+        var x = this.x
+
+        for ((i, it) in regions) {
+            val width = it.originalWidth.toFloat()
+            val height = it.originalHeight.toFloat()
+
             val y = this.y + (this.height - height) / 2
-            batch.draw(region, x, y, originX, originY, width, height, scaleX, scaleY, rotation)
+
+            if(checkedIndexes.contains(i) && parentAlpha == 1f) color.a = 0.3f
+            else color.a = 1f
+
+            batch!!.color = color
+            batch.draw(it, x, y, originX, originY, width, height, scaleX, scaleY, rotation)
+
+            x += width + padding
         }
     }
 
-    fun setIconNumber(num: Int){
-        region = regions[num]
+    fun setIconNumbers(numbers: Array<Int>) {
+        regions.clear()
+        for (number in numbers) regions[number] = allRegions[number]
+        changePositions()
+
     }
+
+    fun addIconNumber(number: Int) {
+        regions[number] = allRegions[number]
+        changePositions()
+    }
+
+    fun clearAll() {
+        regions.clear()
+        checkedIndexes.clear()
+    }
+
+    fun clickByIcon(region: TextureAtlas.AtlasRegion?) {
+        val index = regions.values.indexOf(region)
+        if(index != -1) checkedIndexes.add(index)
+    }
+
+    fun clickByIcon(iconNumber: Int) {
+        checkedIndexes.add(iconNumber)
+    }
+
+    fun isAllChecked() = checkedIndexes.size == regions.size
 }

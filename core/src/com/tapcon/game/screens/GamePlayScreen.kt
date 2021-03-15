@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.tapcon.game.Config
+import com.tapcon.game.Config.Debug
 import com.tapcon.game.actors.Background
 import com.tapcon.game.actors.DigitalBlow
 import com.tapcon.game.actors.game_play.*
@@ -27,7 +28,8 @@ class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
 
     private val bracketLeft = Bracket(manager)
     private val bracketRight = Bracket(manager)
-    private val headIcon = HeadIcon(manager)
+    private val headIcon = HeadIcon(manager, bracketLeft, bracketRight)
+
     private val timer = GameTimer(manager)
     private val scoreActor = Score(manager)
     private val helper = Helper(manager)
@@ -39,9 +41,11 @@ class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
     private val collCount = 7
 
     private var numIconsOnScene = 1
-    private var numMainIcon = -1
+    private var numMainIconForHelper = -1
 
     private var score = 0
+
+    private var round = 1
 
     private val iconsActors = Array(rowCount * collCount) { CellIcon(manager, scoreActor) }
 
@@ -54,7 +58,7 @@ class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
     init {
         stageBackground.addActor(Background(manager))
         initActorsPositions()
-        if(Config.Debug.ALWAYS_SHOW_HELPER.state) isFirstAppRunning = true
+        if (Debug.ALWAYS_SHOW_HELPER.state) isFirstAppRunning = true
 
         stage.apply {
             addActor(bracketLeft)
@@ -70,10 +74,15 @@ class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
         initIconsMatrix()
         setIconsGroupPosition()
 
-        numMainIcon = setNewActiveIcon()// Test
-        setMainIcon(numMainIcon)
+        if (Debug.NUM_SCREEN_ACTORS.state) {
+            numIconsOnScene = Debug.NUM_SCREEN_ACTORS.info as Int
+            reInitActors()
+        }
 
-        helper.watchByActor(activeMap[numMainIcon])
+        numMainIconForHelper = setNewActiveIcon()// Test
+        setMainIcon(numMainIconForHelper)
+
+        helper.watchByActor(activeMap[numMainIconForHelper])
 
         startControlGameOver()
 
@@ -110,7 +119,7 @@ class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
 
                     if (isFirstAppRunning && numIconsOnScene > Config.NUMBER_STEPS_FOR_HELPERS) {
                         isFirstAppRunning = false
-                    } else if(isFirstAppRunning.not() && numIconsOnScene == 2) {
+                    } else if (isFirstAppRunning.not() && numIconsOnScene == 2) {
                         isFirstAppRunning = false
                     }
 
@@ -136,14 +145,20 @@ class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
         bracketRight.animate(AnimationType.PULSE)
         element.animate(AnimationType.SCORE_INCREASE, Runnable {
             scoreActor.score = ++score
-            timer.increaseTimer()
-            reInitActors()
-            setMainIcon()
+            headIcon.clickByIcon(element.index)
 
-            if (isFirstAppRunning) helper.watchByActor(activeMap[numMainIcon])
-            else if (helper.isVisible) {
-                helper.isVisible = false
-                timer.start()
+            if(headIcon.isAllChecked()){
+                timer.increaseTimer()
+                reInitActors()
+                headIcon.clearAll()
+                setMainIcons(round)
+                round++ //TODO debug
+
+                if (isFirstAppRunning) helper.watchByActor(activeMap[numMainIconForHelper])
+                else if (helper.isVisible) {
+                    helper.isVisible = false
+                    timer.start()
+                }
             }
         })
 
@@ -152,13 +167,19 @@ class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
     }
 
     private fun setMainIcon(value: Int = -1) {
-        numMainIcon = if (value == -1) {
+        val num = if (value == -1) {
             val randomValue = Random.nextInt(0, numIconsOnScene - 1)
             activeMap.keys.elementAt(randomValue)
         } else value
-        activeMap[numMainIcon]?.isMain = true
-        activeMap[numMainIcon]?.setNormalView()
-        headIcon.setIconNumber(numMainIcon)
+        activeMap[num]?.isMain = true
+        activeMap[num]?.setNormalView()
+        activeMap[num]?.index = num
+        headIcon.addIconNumber(num)
+        numMainIconForHelper = num
+    }
+
+    private fun setMainIcons(num: Int = 1) {
+        for (n in 0 until num) setMainIcon()
     }
 
     private fun reInitActors() {
@@ -176,9 +197,16 @@ class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
     }
 
     private fun setNewActiveIcon(): Int {
-        val iconNumber = getUniqueRandomNumber({ activeMap.contains(it) }, iconsRegions.size)
-        val actorNumber = getUniqueRandomNumber({ iconsActors[it].isActive() }, iconsActors.size)
+        val iconNumber = getUniqueRandomNumber({
+            activeMap.contains(it) && activeMap[it]!!.isMain.not()
+        }, iconsRegions.size)
+
+        val actorNumber = getUniqueRandomNumber({
+            iconsActors[it].isActive()
+        }, iconsActors.size)
+
         val icon = iconsActors[actorNumber]
+        icon.index = actorNumber
         activeMap[iconNumber] = icon
         icon.setIconByNumber(iconNumber)
         return iconNumber
@@ -207,19 +235,7 @@ class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
     }
 
     private fun initActorsPositions() {
-        headIcon.setSize(bracketLeft.height, bracketLeft.height)
-
-        val headX = (Config.WIDTH_GAME - headIcon.width) / 2
         val headY = Config.HEIGHT_GAME - bracketLeft.height - 50f
-        val padding = 100f
-
-        bracketLeft.setPosition(headX - padding, headY)
-        headIcon.setPosition(headX, headY)
-
-
-        bracketRight.scaleX = -1f
-        bracketRight.setPosition(headIcon.tailX + padding, headY)
-
         timer.setPosition((Config.WIDTH_GAME - timer.width) / 2, headY - timer.height - 50)
     }
 
