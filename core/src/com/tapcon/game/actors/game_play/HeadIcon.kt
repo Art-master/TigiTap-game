@@ -20,7 +20,8 @@ class HeadIcon(manager: AssetManager,
     private val padding = 100f
 
     private fun changePositions() {
-        val width = (regionWidth * regions.size) + (regions.size * padding)
+        var width = 0f
+        regions.values.forEach{ width += it.regionWidth + padding }
 
         setSize(width, bracketLeft.height)
 
@@ -45,7 +46,7 @@ class HeadIcon(manager: AssetManager,
 
             val y = this.y + (this.height - height) / 2
 
-            if(checkedIndexes.contains(i) && parentAlpha == 1f) color.a = 0.3f
+            if (checkedIndexes.contains(i) && parentAlpha == 1f) color.a = 0.3f
             else color.a = 1f
 
             batch!!.color = color
@@ -74,7 +75,7 @@ class HeadIcon(manager: AssetManager,
 
     fun clickByIcon(region: TextureAtlas.AtlasRegion?) {
         val index = regions.values.indexOf(region)
-        if(index != -1) checkedIndexes.add(index)
+        if (index != -1) checkedIndexes.add(index)
     }
 
     fun clickByIcon(iconNumber: Int) {
@@ -82,4 +83,6 @@ class HeadIcon(manager: AssetManager,
     }
 
     fun isAllChecked() = checkedIndexes.size == regions.size
+
+    fun contains(iconNum: Int) = regions.containsKey(iconNum)
 }

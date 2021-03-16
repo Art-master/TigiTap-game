@@ -13,7 +13,7 @@ object Config {
         ADS(false),
         ALWAYS_SHOW_HELPER(false),
         DENY_GAME_OVER(true),
-        NUM_SCREEN_ACTORS(true, 20)
+        NUM_SCREEN_ACTORS(true, 19)
     }
 
     enum class Achievement(val score: Int) {

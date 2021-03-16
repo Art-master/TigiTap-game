@@ -46,6 +46,7 @@ class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
     private var score = 0
 
     private var round = 1
+    private var maxRoundCount = 4
 
     private val iconsActors = Array(rowCount * collCount) { CellIcon(manager, scoreActor) }
 
@@ -79,7 +80,7 @@ class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
             reInitActors()
         }
 
-        numMainIconForHelper = setNewActiveIcon()// Test
+        numMainIconForHelper = setNewActiveIcon() // Start icon
         setMainIcon(numMainIconForHelper)
 
         helper.watchByActor(activeMap[numMainIconForHelper])
@@ -112,17 +113,10 @@ class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
     private fun addActorListener(actor: CellIcon) {
         addClickListener(actor) {
             if (actor.isActive().not()) return@addClickListener false
-            if (numIconsOnScene < iconsActors.size) numIconsOnScene += 1
 
             when {
                 actor.isMain -> {
-
-                    if (isFirstAppRunning && numIconsOnScene > Config.NUMBER_STEPS_FOR_HELPERS) {
-                        isFirstAppRunning = false
-                    } else if (isFirstAppRunning.not() && numIconsOnScene == 2) {
-                        isFirstAppRunning = false
-                    }
-
+                    controlHelper()
                     animateMainActorAndReInit(actor)
                 }
                 isFirstAppRunning.not() -> {
@@ -140,6 +134,14 @@ class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
         }
     }
 
+    private fun controlHelper() {
+        if (isFirstAppRunning && numIconsOnScene == Config.NUMBER_STEPS_FOR_HELPERS) {
+            isFirstAppRunning = false
+        } else if (isFirstAppRunning.not() && numIconsOnScene == 1) {
+            isFirstAppRunning = false
+        }
+    }
+
     private fun animateMainActorAndReInit(element: CellIcon) {
         bracketLeft.animate(AnimationType.PULSE)
         bracketRight.animate(AnimationType.PULSE)
@@ -147,12 +149,13 @@ class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
             scoreActor.score = ++score
             headIcon.clickByIcon(element.index)
 
-            if(headIcon.isAllChecked()){
+            if (headIcon.isAllChecked()) {
                 timer.increaseTimer()
+                roundControl()
+                if (numIconsOnScene < iconsActors.size) numIconsOnScene += 1
                 reInitActors()
                 headIcon.clearAll()
                 setMainIcons(round)
-                round++ //TODO debug
 
                 if (isFirstAppRunning) helper.watchByActor(activeMap[numMainIconForHelper])
                 else if (helper.isVisible) {
@@ -166,11 +169,23 @@ class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
         digitalBlow.animate(AnimationType.BLOW, duration = 0.5f)
     }
 
+    private fun roundControl() {
+        val maxIconNumber = rowCount * collCount
+        if (numIconsOnScene == maxIconNumber && round < maxRoundCount) {
+            round += 1
+            numIconsOnScene = round
+        }
+    }
+
     private fun setMainIcon(value: Int = -1) {
         val num = if (value == -1) {
             val randomValue = Random.nextInt(0, numIconsOnScene - 1)
             activeMap.keys.elementAt(randomValue)
         } else value
+        setMainIconParams(num)
+    }
+
+    private fun setMainIconParams(num: Int) {
         activeMap[num]?.isMain = true
         activeMap[num]?.setNormalView()
         activeMap[num]?.index = num
@@ -179,7 +194,15 @@ class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
     }
 
     private fun setMainIcons(num: Int = 1) {
-        for (n in 0 until num) setMainIcon()
+        val numbers = ArrayList<Int>()
+        while (numbers.size < num) {
+            val randomValue = Random.nextInt(0, numIconsOnScene - 1)
+            val iconNum = activeMap.keys.elementAt(randomValue)
+            if (!numbers.contains(iconNum) && !headIcon.contains(iconNum)) {
+                numbers.add(iconNum)
+            }
+        }
+        numbers.forEach { setMainIconParams(it) }
     }
 
     private fun reInitActors() {
