@@ -18,17 +18,6 @@
     <string name="ad_interstitial_id" translatable="false">ca-app-pub-9088635744980430/8464829755</string>
     <string name="ad_interstitial_video_id" translatable="false">ca-app-pub-3940256099942544/8691691433</string>
 
-    //Achievements ids
-    <string name="SUNGLASSES" translatable="false">CgkI5uqQg4oREAIQAA</string>
-    <string name="HAT" translatable="false">CgkI5uqQg4oREAIQAQ</string>
-    <string name="BOOTS" translatable="false">CgkI5uqQg4oREAIQAg</string>
-    <string name="BELT" translatable="false">CgkI5uqQg4oREAIQAw</string>
-    <string name="GUN" translatable="false"> CgkI5uqQg4oREAIQBA</string>
-    <string name="BULLETS" translatable="false">CgkI5uqQg4oREAIQBQ</string>
-    <string name="FINISH_GAME" translatable="false">CgkI5uqQg4oREAIQBg</string>
-
-    <string name="leaderboard" translatable="false">CgkI5uqQg4oREAIQCw</string>
-
     <string name="share_msg">I scored %1$d points at \"Run, Cookie, Run\" </string>
     <string name="share_msg_win">I win in \"Run, Cookie, Run\" game </string>
     <string name="share_window_header">Share</string>
