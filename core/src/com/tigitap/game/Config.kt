@@ -8,7 +8,6 @@ object Config {
     const val SOUNDS_FOLDER = "sounds/"
 
     enum class Debug(var state: Boolean, var info: Any = 0) {
-        COLLISIONS(false),
         PLAY_SERVICES(false),
         ADS(false),
         ALWAYS_SHOW_HELPER(false),
@@ -16,6 +15,13 @@ object Config {
         NUM_SCREEN_ACTORS(true, 19)
     }
 
-    enum class Achievement(val score: Int) {
+    enum class Achievement(val score: Int = 0) {
+        NOT_A_BAD_START,
+        WELL_DONE,
+        LUCKY,
+        THE_FASTEST_GUN_IN_THE_WILD_WEST,
+        NINJA,
+        SLOW_DOWN_ROACH,
+        FREQUENT_GUEST,
     }
 }

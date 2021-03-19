@@ -17,19 +17,18 @@ import com.tigitap.game.actors.loading_progress.ProgressBar
 import com.tigitap.game.data.Descriptors
 import com.tigitap.game.managers.AudioManager
 import com.tigitap.game.managers.ScreenManager
+import com.tigitap.game.managers.ScreenManager.Param
 import com.tigitap.game.managers.ScreenManager.Param.FIRST_APP_RUN
 
 
-class LoadingScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params) {
+class LoadingScreen(params: Map<Param, Any>) : GameScreen(params) {
 
     private var progressBar: ProgressBar? = null
 
     private var firstRun = false
 
     init {
-        val prefs = Gdx.app.getPreferences(Prefs.NAME)
-        firstRun = prefs.getBoolean(Prefs.FIRST_RUN, true)
-        if (firstRun) prefs.putBoolean(Prefs.FIRST_RUN, false).flush()
+        controlPrefs()
 
         ScreenManager.setGlobalParameter(FIRST_APP_RUN, firstRun)
 
@@ -38,6 +37,15 @@ class LoadingScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params) 
         initProgressBarActors()
         loadResources()
         Gdx.input.inputProcessor = stage
+    }
+
+    private fun controlPrefs() {
+        val prefs = Gdx.app.getPreferences(Prefs.NAME)
+        firstRun = prefs.getBoolean(Prefs.FIRST_RUN, true)
+        if (firstRun) prefs.putBoolean(Prefs.FIRST_RUN, false).flush()
+
+        val visitAppNum = prefs.getInteger(Prefs.VISIT_APP_COUNT, 1)
+        ScreenManager.globalParameters[Param.NUM_APP_VISIT] = visitAppNum
     }
 
     private fun loadStartResources() {

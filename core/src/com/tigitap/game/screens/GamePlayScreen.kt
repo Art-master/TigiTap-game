@@ -6,22 +6,25 @@ import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.tigitap.game.Config
-import com.tigitap.game.data.Assets
-import com.tigitap.game.data.Descriptors
-import com.tigitap.game.managers.AudioManager
-import com.tigitap.game.managers.ScreenManager
-import com.tigitap.game.managers.VibrationManager
-import com.tigitap.game.managers.VibrationManager.VibrationType.CLICK
+import com.tigitap.game.Config.Achievement.*
 import com.tigitap.game.Config.Debug
 import com.tigitap.game.actors.Background
 import com.tigitap.game.actors.DigitalBlow
 import com.tigitap.game.actors.game_play.*
 import com.tigitap.game.api.AnimationType
+import com.tigitap.game.data.Assets
+import com.tigitap.game.data.Descriptors
+import com.tigitap.game.managers.AudioManager
+import com.tigitap.game.managers.ScreenManager
+import com.tigitap.game.managers.ScreenManager.Param
+import com.tigitap.game.managers.VibrationManager
+import com.tigitap.game.managers.VibrationManager.VibrationType.CLICK
 import kotlin.random.Random
 
-class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params) {
+class GamePlayScreen(params: Map<Param, Any>) : GameScreen(params) {
 
-    private var isFirstAppRunning = params[ScreenManager.Param.FIRST_APP_RUN] as Boolean
+    private var isFirstAppRunning = params[Param.FIRST_APP_RUN] as Boolean
+    private var numAppVisit = params[Param.NUM_APP_VISIT] as Int
 
     private val atlas = manager.get(Descriptors.icons)
     private val iconsRegions = atlas.findRegions(Assets.IconsAtlas.ICON)
@@ -87,6 +90,8 @@ class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
 
         startControlGameOver()
 
+        controlAchievements()
+
         Gdx.input.inputProcessor = stage
     }
 
@@ -118,6 +123,7 @@ class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
                 actor.isMain -> {
                     controlHelper()
                     animateMainActorAndReInit(actor)
+                    controlAchievements(true)
                 }
                 isFirstAppRunning.not() -> {
                     if (score > 0) scoreActor.score = --score
@@ -139,6 +145,22 @@ class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
             isFirstAppRunning = false
         } else if (isFirstAppRunning.not() && numIconsOnScene == 1) {
             isFirstAppRunning = false
+        }
+    }
+
+    private fun controlAchievements(isRightClick: Boolean = false) {
+        if (isRightClick) {
+            val roundScoreCount = collCount * rowCount
+            when (score) {
+                roundScoreCount -> servicesController.unlockAchievement(NOT_A_BAD_START)
+                roundScoreCount * 3 -> servicesController.unlockAchievement(WELL_DONE)
+                roundScoreCount * 6 -> servicesController.unlockAchievement(LUCKY)
+                roundScoreCount * 9 -> servicesController.unlockAchievement(THE_FASTEST_GUN_IN_THE_WILD_WEST)
+                roundScoreCount * 13 -> servicesController.unlockAchievement(NINJA)
+                roundScoreCount * 19 -> servicesController.unlockAchievement(SLOW_DOWN_ROACH)
+            }
+        } else {
+            if (numAppVisit == 30) servicesController.unlockAchievement(FREQUENT_GUEST)
         }
     }
 
@@ -279,7 +301,7 @@ class GamePlayScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
             AudioManager.stopAll()
             iconsActors.forEach { icon -> icon.clear() }
             ScreenManager.setScreen(ScreenManager.Screens.GAME_OVER,
-                    Pair(ScreenManager.Param.SCORE, score))
+                    Pair(Param.SCORE, score))
         }
     }
 

@@ -176,7 +176,7 @@ public class AndroidLauncher extends AndroidApplication implements AdsController
             public void onAdLoaded(@NonNull InterstitialAd ad) {
                 super.onAdLoaded(ad);
                 interstitialAd = ad;
-                if(callback != null) callback.call();
+                if (callback != null) callback.call();
             }
 
             @Override
@@ -222,7 +222,7 @@ public class AndroidLauncher extends AndroidApplication implements AdsController
                 super.onAdLoaded(rewardedAd);
                 rewardedVideoAd = rewardedAd;
                 rewardedVideoAd.setFullScreenContentCallback(getFullScreenContentCallback(adsCallback));
-                if(callback != null) callback.call();
+                if (callback != null) callback.call();
             }
 
             @Override
