@@ -152,11 +152,17 @@ class GamePlayScreen(params: Map<Param, Any>) : GameScreen(params) {
         if (isRightClick) {
             val roundScoreCount = collCount * rowCount
             when (score) {
+                //round 1
                 roundScoreCount -> servicesController.unlockAchievement(NOT_A_BAD_START)
+                //round 2
                 roundScoreCount * 3 -> servicesController.unlockAchievement(WELL_DONE)
+                //round 3
                 roundScoreCount * 6 -> servicesController.unlockAchievement(LUCKY)
+                // 190 points
                 roundScoreCount * 9 -> servicesController.unlockAchievement(THE_FASTEST_GUN_IN_THE_WILD_WEST)
+                // 274 points
                 roundScoreCount * 13 -> servicesController.unlockAchievement(NINJA)
+                // 400 points
                 roundScoreCount * 19 -> servicesController.unlockAchievement(SLOW_DOWN_ROACH)
             }
         } else {

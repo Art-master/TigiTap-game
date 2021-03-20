@@ -2,7 +2,6 @@ package com.tigitap.game.managers
 
 import com.badlogic.gdx.Gdx
 import com.tigitap.game.Prefs
-import java.util.*
 
 object VibrationManager {
     private var prefs = Gdx.app.getPreferences(Prefs.NAME)
@@ -33,12 +32,6 @@ object VibrationManager {
     fun vibrate(type: VibrationType = VibrationType.CLICK, repeatCount: Int = -1) {
         if (isVibrationEnable && time == 0L) {
             time = type.get()
-            val vibrationTask = object : TimerTask() {
-                override fun run() {
-                    time = if (repeatCount == -1) 0L else 1L
-                }
-            }
-            Timer().schedule(vibrationTask, time)
             Gdx.input.vibrate(type.signature, if (repeatCount < 0) type.repeat else repeatCount)
         }
     }

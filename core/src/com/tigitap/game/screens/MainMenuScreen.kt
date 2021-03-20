@@ -40,27 +40,35 @@ class MainMenuScreen(params: Map<ScreenManager.Param, Any>) : GameScreen(params)
 
         addListenersToButtons(musicButton) {
             AudioManager.switchMusicSetting()
+            return@addListenersToButtons true
             //if(AudioManager.isMusicEnable) AudioManager.play(AudioManager.MusicApp.GAME_MUSIC) //TODO Game Music
         }
 
-        addListenersToButtons(soundButton) { AudioManager.switchSoundSetting() }
+        addListenersToButtons(soundButton) {
+            AudioManager.switchSoundSetting()
+            return@addListenersToButtons true
+        }
 
-        addListenersToButtons(vibrationButton) { VibrationManager.switchVibrationSetting() }
+        addListenersToButtons(vibrationButton) {
+            VibrationManager.switchVibrationSetting()
+            return@addListenersToButtons true
+        }
 
         var isPlayButtonPressed = false
 
         addListenersToButtons(playButton) {
-            if (isPlayButtonPressed) return@addListenersToButtons
+            if (isPlayButtonPressed) return@addListenersToButtons false
             isPlayButtonPressed = true
 
 
             playButton.animate(AnimationType.HIDE_FROM_SCENE, Runnable {
                 ScreenManager.setScreen(ScreenManager.Screens.GAME_SCREEN)
             })
+            return@addListenersToButtons true
         }
     }
 
-    private fun addListenersToButtons(actor: Actor, function: () -> Unit) {
+    private fun addListenersToButtons(actor: Actor, function: () -> Boolean) {
         actor.addListener(object : ClickListener() {
             override fun touchDown(event: InputEvent?, x: Float, y: Float, pointer: Int, button: Int): Boolean {
                 function.invoke()

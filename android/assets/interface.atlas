@@ -1,496 +1,132 @@
 
 interface.png
-size: 2048, 1024
+size: 2048, 512
 format: RGBA8888
-filter: Nearest, Nearest
+filter: MipMap, MipMap
 repeat: none
-author_help
-  rotate: false
-  xy: 823, 120
-  size: 140, 140
-  orig: 140, 140
-  offset: 0, 0
-  index: -1
 awards
   rotate: false
-  xy: 556, 77
+  xy: 1279, 310
   size: 123, 151
   orig: 123, 151
   offset: 0, 0
   index: -1
-big_star
-  rotate: false
-  xy: 302, 514
-  size: 280, 280
-  orig: 280, 280
-  offset: 0, 0
-  index: -1
-boll
-  rotate: false
-  xy: 1432, 382
-  size: 140, 140
-  orig: 140, 140
-  offset: 0, 0
-  index: -1
 border
   rotate: false
-  xy: 2, 496
+  xy: 633, 95
   size: 298, 298
   orig: 298, 298
   offset: 0, 0
   index: -1
-border_blue
-  rotate: false
-  xy: 497, 800
-  size: 430, 140
-  orig: 430, 140
-  offset: 0, 0
-  index: -1
-border_green
-  rotate: false
-  xy: 1028, 333
-  size: 140, 140
-  orig: 140, 140
-  offset: 0, 0
-  index: -1
 border_mini
   rotate: false
-  xy: 988, 596
+  xy: 375, 64
   size: 158, 158
   orig: 158, 158
   offset: 0, 0
   index: -1
-border_time
-  rotate: false
-  xy: 993, 958
-  size: 274, 50
-  orig: 274, 50
-  offset: 0, 0
-  index: -1
 bracket
   rotate: false
-  xy: 284, 311
+  xy: 933, 210
   size: 32, 183
   orig: 32, 183
   offset: 0, 0
   index: -1
 cell
   rotate: false
-  xy: 2, 4
+  xy: 2, 14
   size: 208, 208
   orig: 208, 208
   offset: 0, 0
   index: -1
-circle
-  rotate: false
-  xy: 744, 404
-  size: 140, 140
-  orig: 140, 140
-  offset: 0, 0
-  index: -1
-close_button
-  rotate: false
-  xy: 886, 271
-  size: 60, 60
-  orig: 60, 60
-  offset: 0, 0
-  index: -1
-cup
-  rotate: false
-  xy: 1107, 49
-  size: 140, 140
-  orig: 140, 140
-  offset: 0, 0
-  index: -1
-dizlayk
-  rotate: false
-  xy: 1901, 684
-  size: 140, 140
-  orig: 140, 140
-  offset: 0, 0
-  index: -1
-equally
-  rotate: false
-  xy: 1574, 382
-  size: 140, 140
-  orig: 140, 140
-  offset: 0, 0
-  index: -1
-eye
-  rotate: false
-  xy: 1716, 382
-  size: 140, 140
-  orig: 140, 140
-  offset: 0, 0
-  index: -1
-game_level
-  rotate: false
-  xy: 2, 214
-  size: 280, 280
-  orig: 280, 280
-  offset: 0, 0
-  index: -1
 game_name
   rotate: false
-  xy: 2, 796
-  size: 493, 144
-  orig: 493, 144
-  offset: 0, 0
-  index: -1
-game_over_shadow
-  rotate: false
-  xy: 1273, 756
-  size: 200, 50
-  orig: 200, 50
-  offset: 0, 0
-  index: -1
-gamepad
-  rotate: false
-  xy: 1107, 191
-  size: 140, 140
-  orig: 140, 140
-  offset: 0, 0
-  index: -1
-gears
-  rotate: false
-  xy: 744, 262
-  size: 140, 140
-  orig: 140, 140
+  xy: 2, 224
+  size: 629, 169
+  orig: 629, 169
   offset: 0, 0
   index: -1
 hand
   rotate: false
-  xy: 1430, 243
+  xy: 1149, 324
   size: 128, 137
   orig: 128, 137
   offset: 0, 0
   index: -1
-hands_up
-  rotate: false
-  xy: 414, 88
-  size: 140, 140
-  orig: 140, 140
-  offset: 0, 0
-  index: -1
-heart
-  rotate: false
-  xy: 602, 262
-  size: 140, 140
-  orig: 140, 140
-  offset: 0, 0
-  index: -1
-human
-  rotate: false
-  xy: 1290, 472
-  size: 140, 140
-  orig: 140, 140
-  offset: 0, 0
-  index: -1
-lock
-  rotate: false
-  xy: 460, 372
-  size: 140, 140
-  orig: 140, 140
-  offset: 0, 0
-  index: -1
 menu
   rotate: false
-  xy: 681, 6
+  xy: 1526, 349
   size: 137, 112
   orig: 137, 112
   offset: 0, 0
   index: -1
-mini_star
-  rotate: false
-  xy: 1785, 326
-  size: 62, 54
-  orig: 62, 54
-  offset: 0, 0
-  index: 2
-mini_star
-  rotate: false
-  xy: 1849, 326
-  size: 62, 54
-  orig: 62, 54
-  offset: 0, 0
-  index: 1
 music_icon
   rotate: false
-  xy: 1682, 278
+  xy: 967, 220
   size: 101, 102
   orig: 101, 102
   offset: 0, 0
   index: -1
-off
-  rotate: false
-  xy: 1148, 475
-  size: 140, 140
-  orig: 140, 140
-  offset: 0, 0
-  index: -1
-phone
-  rotate: false
-  xy: 1288, 330
-  size: 140, 140
-  orig: 140, 140
-  offset: 0, 0
-  index: -1
-picture
-  rotate: false
-  xy: 1304, 614
-  size: 140, 140
-  orig: 140, 140
-  offset: 0, 0
-  index: -1
 play
   rotate: false
-  xy: 1879, 826
+  xy: 212, 40
   size: 161, 182
   orig: 161, 182
   offset: 0, 0
   index: -1
-plus
-  rotate: false
-  xy: 602, 404
-  size: 140, 140
-  orig: 140, 140
-  offset: 0, 0
-  index: 2
-plus
-  rotate: false
-  xy: 1446, 524
-  size: 140, 140
-  orig: 140, 140
-  offset: 0, 0
-  index: -1
-question
-  rotate: false
-  xy: 318, 372
-  size: 140, 140
-  orig: 140, 140
-  offset: 0, 0
-  index: -1
-re_struct
-  rotate: false
-  xy: 1872, 524
-  size: 140, 140
-  orig: 140, 140
-  offset: 0, 0
-  index: -1
-refresh
-  rotate: false
-  xy: 1249, 46
-  size: 140, 140
-  orig: 140, 140
-  offset: 0, 0
-  index: -1
 reload
   rotate: false
-  xy: 820, 10
+  xy: 1665, 353
   size: 123, 108
   orig: 123, 108
   offset: 0, 0
   index: -1
-right_arrow
-  rotate: false
-  xy: 886, 333
-  size: 140, 140
-  orig: 140, 140
-  offset: 0, 0
-  index: -1
-save
-  rotate: false
-  xy: 1475, 666
-  size: 140, 140
-  orig: 140, 140
-  offset: 0, 0
-  index: -1
 scores
   rotate: false
-  xy: 1148, 617
+  xy: 993, 324
   size: 154, 137
   orig: 154, 137
   offset: 0, 0
   index: -1
 shadow
   rotate: false
-  xy: 993, 946
+  xy: 2, 2
   size: 10, 10
   orig: 10, 10
   offset: 0, 0
   index: -1
 share
   rotate: false
-  xy: 1560, 243
+  xy: 1404, 324
   size: 120, 137
   orig: 120, 137
   offset: 0, 0
   index: -1
-shopping
-  rotate: false
-  xy: 965, 49
-  size: 140, 140
-  orig: 140, 140
-  offset: 0, 0
-  index: -1
-smile
-  rotate: false
-  xy: 584, 598
-  size: 200, 200
-  orig: 200, 200
-  offset: 0, 0
-  index: 2
-smile
-  rotate: false
-  xy: 786, 598
-  size: 200, 200
-  orig: 200, 200
-  offset: 0, 0
-  index: 7
-smile
-  rotate: false
-  xy: 212, 12
-  size: 200, 200
-  orig: 200, 200
-  offset: 0, 0
-  index: 4
-smile
-  rotate: false
-  xy: 1071, 756
-  size: 200, 200
-  orig: 200, 200
-  offset: 0, 0
-  index: 1
-smile
-  rotate: false
-  xy: 1273, 808
-  size: 200, 200
-  orig: 200, 200
-  offset: 0, 0
-  index: 6
-smile
-  rotate: false
-  xy: 1475, 808
-  size: 200, 200
-  orig: 200, 200
-  offset: 0, 0
-  index: 3
-smile
-  rotate: false
-  xy: 1677, 808
-  size: 200, 200
-  orig: 200, 200
-  offset: 0, 0
-  index: 5
-smile
-  rotate: false
-  xy: 1617, 666
-  size: 140, 140
-  orig: 140, 140
-  offset: 0, 0
-  index: -1
-smile_frown
-  rotate: false
-  xy: 929, 800
-  size: 140, 140
-  orig: 140, 140
-  offset: 0, 0
-  index: -1
-smile_sad
-  rotate: false
-  xy: 318, 230
-  size: 140, 140
-  orig: 140, 140
-  offset: 0, 0
-  index: -1
-sound
-  rotate: false
-  xy: 965, 191
-  size: 140, 140
-  orig: 140, 140
-  offset: 0, 0
-  index: -1
 sound_icon
   rotate: false
-  xy: 1170, 372
+  xy: 1790, 360
   size: 116, 101
   orig: 116, 101
   offset: 0, 0
   index: -1
-stand
-  rotate: false
-  xy: 1588, 524
-  size: 140, 140
-  orig: 140, 140
-  offset: 0, 0
-  index: -1
-think
-  rotate: false
-  xy: 681, 120
-  size: 140, 140
-  orig: 140, 140
-  offset: 0, 0
-  index: -1
-three
-  rotate: false
-  xy: 1858, 382
-  size: 140, 140
-  orig: 140, 140
-  offset: 0, 0
-  index: -1
 time_border
   rotate: false
-  xy: 2, 942
+  xy: 2, 395
   size: 989, 66
   orig: 989, 66
   offset: 0, 0
   index: -1
-time_line
-  rotate: false
-  xy: 584, 546
-  size: 243, 50
-  orig: 243, 50
-  offset: 0, 0
-  index: -1
 timer_icon
   rotate: false
-  xy: 549, 2
+  xy: 535, 149
   size: 73, 73
   orig: 73, 73
   offset: 0, 0
   index: -1
-two
-  rotate: false
-  xy: 1730, 524
-  size: 140, 140
-  orig: 140, 140
-  offset: 0, 0
-  index: -1
-vibration
-  rotate: false
-  xy: 1759, 666
-  size: 140, 140
-  orig: 140, 140
-  offset: 0, 0
-  index: -1
 vibration_icon
   rotate: false
-  xy: 414, 2
+  xy: 1908, 377
   size: 133, 84
   orig: 133, 84
-  offset: 0, 0
-  index: -1
-woman
-  rotate: false
-  xy: 1249, 188
-  size: 140, 140
-  orig: 140, 140
-  offset: 0, 0
-  index: -1
-x
-  rotate: false
-  xy: 460, 230
-  size: 140, 140
-  orig: 140, 140
   offset: 0, 0
   index: -1

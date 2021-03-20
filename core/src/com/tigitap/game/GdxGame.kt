@@ -16,7 +16,7 @@ class GdxGame(private val controller: ServicesController) : Game() {
         val manager = AssetManager()
         ScreenManager.setGlobalParameter(ScreenManager.Param.ASSET_MANAGER, manager)
         ScreenManager.setScreen(ScreenManager.Screens.LOADING_SCREEN)
-        //controller.signIn() TODO time fir sign in
+        controller.signIn()
     }
 
     override fun render() {
