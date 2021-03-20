@@ -17,7 +17,7 @@ android {
         exclude 'META-INF/robovm/ios/robovm.xml'
     }
     defaultConfig {
-        applicationId "com.tigitap.game"
+        applicationId "com.digitap.game"
         minSdkVersion 16
         targetSdkVersion 29
         versionCode 1
@@ -87,7 +87,7 @@ task run(type: Exec) {
     }
 
     def adb = path + "/platform-tools/adb"
-    commandLine "$adb", 'shell', 'am', 'start', '-n', 'com.tigitap.game/com.tigitap.game.AndroidLauncher'
+    commandLine "$adb", 'shell', 'am', 'start', '-n', 'com.digitap.game/com.digitap.game.AndroidLauncher'
 }
 
 eclipse.project.name = appName + "-android"
